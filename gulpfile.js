@@ -47,12 +47,12 @@ gulp.task('browserify', function() {
     //Pass desired output filename to vinyl-source-stream
     .pipe(source('bundle.js'))
     .pipe(buffer())
-    .pipe(uglify())
+    // Re-activate uglify at production time,
+    // de-activate it for development since it slows down the process heavily
+    // .pipe(uglify())
     // Start piping stream to tasks!
     .pipe(gulp.dest('./js'));
 });
-
-// pug.compileFile('public/js/views/base/layout.pug')
 
 // Static index
 gulp.task('index', function() {

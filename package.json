@@ -24,6 +24,7 @@
     "jquery": "^2.2.3",
     "pace-progress": "^1.0.2",
     "page": "^1.7.1",
+    "prismic.io": "^3.5.0",
     "pug": "^2.0.0-beta11",
     "pugify": "^2.1.0",
     "vinyl-buffer": "^1.0.0",

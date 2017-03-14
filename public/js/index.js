@@ -4,15 +4,18 @@ const page = require('page');
 // Global script
 const initScript = require('./utils/init-script');
 
-// Views
+// Not Found template
 const notFound = require('./views/base/notfound.pug');
+
+// Views
+const home = require('./views/home/index');
 
 // Vendor global scripts
 const pace = require('pace-progress');
 const wow = require('wowjs').WOW;
 
 // Internal global scripts
-const getCurrentSafeTitle = require('./utils/get-title');
+const setCurrentSafeTitle = require('./utils/set-title');
 
 // Helpers
 const render = require('./utils/render');
@@ -47,7 +50,7 @@ $(document).ready(() => {
   page.base('/#');
 
   page((context, next) => {
-    document.title = getCurrentSafeTitle(context);
+    setCurrentSafeTitle(context);
     initPace();
     selectSidebarItem(context);
     closeSidebar();
@@ -58,6 +61,8 @@ $(document).ready(() => {
     $('.inner-body').addClass('hide');
     next();
   });
+
+  page('/', home);
 
   // 404 handler
   // Executes when no other route was found
