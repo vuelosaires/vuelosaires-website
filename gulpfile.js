@@ -22,18 +22,20 @@ gulp.task('styles', function() {
       'include css': true
     }))
     .pipe(cleanCSS({ level: 2 }))
-    .pipe(gulp.dest('./css/'))
+    .pipe(gulp.dest('./dist/css/'))
     .pipe(notify({ message: 'Styles task complete' }));
 });
 
 // Image Compression
 
-gulp.task('images', function() {
-  return gulp.src('./img')
-    .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
-    .pipe(gulp.dest('./img'))
-    .pipe(notify({ message: 'Images task complete' }));
-});
+// 'images' task disabled since we're using the prismic.io image hosting for now
+
+// gulp.task('images', function() {
+//   return gulp.src('dist/img/')
+//     .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
+//     .pipe(gulp.dest('dist/img/'))
+//     .pipe(notify({ message: 'Images task complete' }));
+// });
 
 // Browserify
 
@@ -51,7 +53,7 @@ gulp.task('browserify', function() {
     // de-activate it for development since it slows down the process heavily
     // .pipe(uglify())
     // Start piping stream to tasks!
-    .pipe(gulp.dest('./js'));
+    .pipe(gulp.dest('./dist/js/'));
 });
 
 // Static index
@@ -71,7 +73,6 @@ gulp.task('default', function() {
       'styles',
       'index',
       'browserify',
-      'images',
       'watch');
 });
 
