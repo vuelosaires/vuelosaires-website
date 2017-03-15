@@ -24199,20 +24199,18 @@ pug_html = pug_html + "Not found\u003C\u002Fdiv\u003E";return pug_html;}
 
 },{"fs":3,"pug-runtime":33}],64:[function(require,module,exports){
 var pug = require('pug-runtime');
-module.exports=template;function pug_escape(e){var a=""+e,t=pug_match_html.exec(a);if(!t)return e;var r,c,n,s="";for(r=t.index,c=0;r<a.length;r++){switch(a.charCodeAt(r)){case 34:n="&quot;";break;case 38:n="&amp;";break;case 60:n="&lt;";break;case 62:n="&gt;";break;default:continue}c!==r&&(s+=a.substring(c,r)),c=r+1,s+=n}return c!==r?s+a.substring(c,r):s}
-var pug_match_html=/["&<>]/;
-function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
-;var locals_for_with = (locals || {});(function (videoEmbedURL) {var pug_indent = [];
+module.exports=template;function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
+var pug_indent = [];
 
-pug_html = pug_html + "\n\u003Cdiv\u003E";
+pug_html = pug_html + "\n\u003Cdiv id=\"home\"\u003E";
 
-pug_html = pug_html + "Home\u003C\u002Fdiv\u003E";
+pug_html = pug_html + "\n  \u003Cdiv class=\"video-background hide-opacity\"\u003E";
 
-pug_html = pug_html + "\n\u003Cdiv\u003E";
+pug_html = pug_html + "\n    \u003Cdiv class=\"video-foreground\"\u003E";
 
-pug_html = pug_html + "Results = ";
+pug_html = pug_html + " ";
 
-pug_html = pug_html + (pug_escape(null == (pug_interp = videoEmbedURL) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E";}.call(this,"videoEmbedURL" in locals_for_with?locals_for_with.videoEmbedURL:typeof videoEmbedURL!=="undefined"?videoEmbedURL:undefined));return pug_html;}
+pug_html = pug_html + "\n      \u003Cdiv id=\"home-video\"\u003E\u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";return pug_html;}
 
 },{"fs":3,"pug-runtime":33}],65:[function(require,module,exports){
 'use strict';
@@ -24223,13 +24221,77 @@ var template = require('./home.pug');
 
 function home(context, next) {
   var carouselResults = callPrismic('homepage', function (results, err) {
-    console.log(results);
-    var options = {
-      videoEmbedURL: results[0].data['homepage.video-embed-url'].value[0].text
-    };
+    var videoURL = results[0].data['homepage.video-link'].value[0].text;
 
-    render(context, template, options);
+    if (!videoURL || !(typeof videoURL == 'string')) {
+      return;
+    }
+
+    // BEWARE: Obscure string manipulation ahead
+    var videoId = videoURL.slice(videoURL.indexOf('v=') + 2);
+
+    render(context, template);
+
+    var $section = $('#home');
+
+    createHomeVideo($section, videoId);
   });
+}
+
+function createHomeVideo($section, videoId) {
+  var $videoCont = $section.find('.video-background');
+
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  var player;
+  window.onYouTubeIframeAPIReady = function () {
+    player = new YT.Player('home-video', {
+      videoId: videoId,
+      height: '100%',
+      width: '100%',
+      fitToBackground: true,
+      playerVars: {
+        'autoplay': 1,
+        'rel': 0,
+        'showinfo': 0,
+        'showsearch': 0,
+        'controls': 0,
+        'loop': 1,
+        'enablejsapi': 1,
+        'playlist': videoId,
+        'modestbranding': 1
+      },
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  };
+
+  function onPlayerReady(event) {
+    event.target.setPlaybackQuality('default');
+    event.target.mute();
+  }
+
+  function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.PLAYING) {
+      showVideo();
+    }
+    if (event.data == YT.PlayerState.ENDED) {
+      hideVideo();
+    }
+  }
+
+  function showVideo() {
+    $videoCont.removeClass('hide-opacity');
+  }
+
+  function hideVideo() {
+    $videoCont.addClass('hide-opacity');
+  }
 }
 
 module.exports = home;

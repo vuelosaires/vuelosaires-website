@@ -79,7 +79,7 @@ gulp.task('default', function() {
 gulp.task('watch', function() {
 
   // Watch .scss files
-  gulp.watch(['public/**/*.styl', ], ['styles']);
+  gulp.watch(['public/**/*.styl', 'public/**/*.css'], ['styles']);
 
   // Watch .js files
   gulp.watch(['public/js/**/*.js', 'public/**/*.pug', 'views/**/*.pug'], ['index', 'browserify']);
