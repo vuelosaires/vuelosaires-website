@@ -24204,13 +24204,27 @@ var pug_indent = [];
 
 pug_html = pug_html + "\n\u003Cdiv id=\"home\"\u003E";
 
+pug_html = pug_html + "\n  \u003Cdiv class=\"home-overlay\"\u003E\u003C\u002Fdiv\u003E";
+
 pug_html = pug_html + "\n  \u003Cdiv class=\"video-background hide-opacity\"\u003E";
 
 pug_html = pug_html + "\n    \u003Cdiv class=\"video-foreground\"\u003E";
 
 pug_html = pug_html + " ";
 
-pug_html = pug_html + "\n      \u003Cdiv id=\"home-video\"\u003E\u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";return pug_html;}
+pug_html = pug_html + "\n      \u003Cdiv id=\"home-video\"\u003E\u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n  \u003Cdiv class=\"home-overlay-content\"\u003E";
+
+pug_html = pug_html + "\n    \u003Cdiv\u003E";
+
+pug_html = pug_html + "The good thing about drones\u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\u003Cbr\u002F\u003E";
+
+pug_html = pug_html + "\n    \u003Cdiv\u003E";
+
+pug_html = pug_html + "is that they rock\u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";return pug_html;}
 
 },{"fs":3,"pug-runtime":33}],65:[function(require,module,exports){
 'use strict';
