@@ -9,6 +9,7 @@ const notFound = require('./views/base/notfound.pug');
 
 // Views
 const home = require('./views/home/index');
+const about = require('./views/about/index');
 
 // Vendor global scripts
 const pace = require('pace-progress');
@@ -63,6 +64,8 @@ $(document).ready(() => {
   });
 
   page('/', home);
+
+  page('/about', about);
 
   // 404 handler
   // Executes when no other route was found
