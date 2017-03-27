@@ -27065,8 +27065,16 @@ module.exports = setCurrentTitle;
 
 },{"./parse-context":60,"./title-mappings":64}],64:[function(require,module,exports){
 module.exports={
-  "home": "Home"
+  "home": "Home",
+  "about": "Sobre Nosotros",
+  "services": "Servicios",
+  "turism": "Turismo",
+  "real_state": "Inmobiliaria",
+  "advertising": "Publicidad",
+  "policy": "Nuestras Políticas",
+  "contact": "Contacto"
 }
+
 },{}],65:[function(require,module,exports){
 var pug = require('pug-runtime');
 module.exports=template;function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
@@ -27080,7 +27088,7 @@ pug_html = pug_html + "\n\u003Cp\u003E";
 
 pug_html = pug_html + "Vuelos Aires es una empresa Argentina que presta servicios de blablabla\u003C\u002Fp\u003E";
 
-pug_html = pug_html + "\n\u003Cdiv class=\"about-carousel\"\u003E";
+pug_html = pug_html + "\n\u003Cdiv class=\"single-item\"\u003E";
 
 pug_html = pug_html + "\n  \u003Cdiv class=\"carousel-item\"\u003E";
 
@@ -27104,10 +27112,13 @@ var slick = require('slick-carousel');
 
 function about(context, next) {
   render(context, template);
-  console.log($('.about-carousel'));
-  $('.about-carousel').slick({
+  $('.single-item').slick({
     dots: true,
-    speed: 500
+    speed: 500,
+    centerMode: true,
+    autoplay: true,
+    autoplaySpeed: 3 * 1000,
+    infinite: true
   });
 }
 

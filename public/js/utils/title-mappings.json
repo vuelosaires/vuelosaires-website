@@ -1,5 +1,10 @@
 {
   "home": "Home",
   "about": "Sobre Nosotros",
-  "services": "Servicios"
+  "services": "Servicios",
+  "turism": "Turismo",
+  "real_state": "Inmobiliaria",
+  "advertising": "Publicidad",
+  "policy": "Nuestras Políticas",
+  "contact": "Contacto"
 }
