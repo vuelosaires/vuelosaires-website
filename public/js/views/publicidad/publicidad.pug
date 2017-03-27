@@ -1,0 +1,11 @@
+//- This can't have an ID of #publicidad cause the adblocker blocks it
+#publicidad-service.service-section
+  .section-carousel
+    each val in carouselImages
+      .carousel-image
+        img(src=val.image1.value.main.url)
+  .section-inner.container
+    .row
+      .twelve.columns
+        .section-title= title
+        .section-description= description

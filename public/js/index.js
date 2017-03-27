@@ -10,8 +10,7 @@ const notFound = require('./views/base/notfound.pug');
 // Views
 const home = require('./views/home/index');
 const about = require('./views/about/index');
-const services = require('./views/services/index');
-const advertising = require('./views/services/advertising/index');
+const publicidad = require('./views/publicidad/index');
 const real_state = require('./views/services/real_state/index');
 const turism = require('./views/services/turism/index');
 const contact = require('./views/contact/index');
@@ -73,7 +72,7 @@ $(document).ready(() => {
 
   page('/about', about);
 
-  page('/services', services);
+  page('/publicidad', publicidad);
 
   page('/contact', contact);
 
@@ -82,8 +81,6 @@ $(document).ready(() => {
   page('/turism', turism);
 
   page('/real_state', real_state);
-
-  page('/advertising', advertising);
 
   // 404 handler
   // Executes when no other route was found

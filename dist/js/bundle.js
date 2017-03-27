@@ -26881,8 +26881,7 @@ var notFound = require('./views/base/notfound.pug');
 // Views
 var home = require('./views/home/index');
 var about = require('./views/about/index');
-var services = require('./views/services/index');
-var advertising = require('./views/services/advertising/index');
+var publicidad = require('./views/publicidad/index');
 var real_state = require('./views/services/real_state/index');
 var turism = require('./views/services/turism/index');
 var contact = require('./views/contact/index');
@@ -26946,7 +26945,7 @@ $(document).ready(function () {
 
   page('/about', about);
 
-  page('/services', services);
+  page('/publicidad', publicidad);
 
   page('/contact', contact);
 
@@ -26955,8 +26954,6 @@ $(document).ready(function () {
   page('/turism', turism);
 
   page('/real_state', real_state);
-
-  page('/advertising', advertising);
 
   // 404 handler
   // Executes when no other route was found
@@ -26967,7 +26964,7 @@ $(document).ready(function () {
   page();
 });
 
-},{"./utils/init-script":59,"./utils/parse-context":60,"./utils/render":62,"./utils/set-title":63,"./views/about/index":66,"./views/base/notfound.pug":67,"./views/contact/index":69,"./views/home/index":71,"./views/policy/index":72,"./views/services/advertising/index":75,"./views/services/index":76,"./views/services/real_state/index":77,"./views/services/turism/index":80,"pace-progress":39,"page":40,"wowjs":57}],59:[function(require,module,exports){
+},{"./utils/init-script":59,"./utils/parse-context":60,"./utils/render":62,"./utils/set-title":63,"./views/about/index":66,"./views/base/notfound.pug":67,"./views/contact/index":69,"./views/home/index":71,"./views/policy/index":72,"./views/publicidad/index":74,"./views/services/real_state/index":76,"./views/services/turism/index":78,"pace-progress":39,"page":40,"wowjs":57}],59:[function(require,module,exports){
 'use strict';
 
 function init() {
@@ -27006,13 +27003,24 @@ module.exports = parseContext;
 },{}],61:[function(require,module,exports){
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var Prismic = require('prismic.io');
 
-function callPrismic(documentType, callback) {
-  var predicates = documentType ? Prismic.Predicates.at("document.type", documentType) : '';
+function callPrismic(predicates, callback) {
+  // predicates is needed and should be an object
+  if (!predicates || (typeof predicates === 'undefined' ? 'undefined' : _typeof(predicates)) !== 'object') return;
+  // predicates can have documentType or tag name as strings
+  var docPredicates = predicates.documentType ? predicates.documentType : '';
+  var tagPredicates = predicates.tags ? predicates.tags : '';
+
+  var newPredicates = [Prismic.Predicates.at('document.type', docPredicates)];
+  if (tagPredicates) {
+    newPredicates.push(Prismic.Predicates.at('document.tags', [tagPredicates]));
+  }
   return Prismic.api("http://vuelosaires.prismic.io/api", function (error, api) {
-    api.query(predicates, {}, function (err, response) {
-      // An empty query will return all the documents
+    if (error) return new Error('Can\'t connect to the prismic API.');
+    api.query(newPredicates, {}, function (err, response) {
       callback(response.results, err, response);
     });
   });
@@ -27024,7 +27032,7 @@ module.exports = callPrismic;
 'use strict';
 
 var parseContext = require('./parse-context');
-function render(context, template, options) {
+function render(context, template, options, cb) {
   var ctx = {};
   if (typeof context === 'string') {
     ctx.classText = context;
@@ -27037,6 +27045,10 @@ function render(context, template, options) {
   $('.main-content').removeClass().addClass('main-content ' + ctx.classText).html(template(options));
 
   $('html, body').scrollTop(0);
+
+  if (cb && typeof cb === 'function') {
+    cb();
+  }
 }
 
 module.exports = render;
@@ -27196,7 +27208,10 @@ var render = require('../../utils/render');
 var template = require('./home.pug');
 
 function home(context, next) {
-  var carouselResults = callPrismic('homepage', function (results, err) {
+  var carouselResults = callPrismic({ documentType: 'homepage' }, function (results, err) {
+    console.log(results);
+    if (err || !results.length || !results) return new Error('Bad request.');
+
     var videoURL = results[0].data['homepage.video-link'].value[0].text;
 
     if (!videoURL || !(typeof videoURL == 'string')) {
@@ -27299,45 +27314,96 @@ pug_html = pug_html + "\n\u003Cp\u003E";
 pug_html = pug_html + "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\u003C\u002Fp\u003E";return pug_html;}
 
 },{"fs":1,"pug-runtime":55}],74:[function(require,module,exports){
-var pug = require('pug-runtime');
-module.exports=template;function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
-var pug_indent = [];
-
-pug_html = pug_html + "\n\u003Ch1 class=\"first-title\"\u003E";
-
-pug_html = pug_html + "Publicidad\u003C\u002Fh1\u003E";
-
-pug_html = pug_html + "\n\u003Cp\u003E";
-
-pug_html = pug_html + "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\u003C\u002Fp\u003E";return pug_html;}
-
-},{"fs":1,"pug-runtime":55}],75:[function(require,module,exports){
-'use strict';
-
-var callPrismic = require('../../../utils/prismic-model');
-var render = require('../../../utils/render');
-var template = require('./advertising.pug');
-
-function advertising(context, next) {
-  render(context, template);
-}
-
-module.exports = advertising;
-
-},{"../../../utils/prismic-model":61,"../../../utils/render":62,"./advertising.pug":74}],76:[function(require,module,exports){
 'use strict';
 
 var callPrismic = require('../../utils/prismic-model');
 var render = require('../../utils/render');
-var template = require('./services.pug');
+var template = require('./publicidad.pug');
+var slick = require('slick-carousel');
 
-function services(context, next) {
-  render(context, template);
+function publicidad(context, next) {
+  callPrismic({
+    documentType: 'service-page',
+    tags: 'publicidad'
+  }, function (results, err) {
+    if (err) return new Error('Bad Request');
+
+    results = results[0];
+    var templateOptions = {
+      carouselImages: results.data['service-page.carousel-images'].value,
+      description: results.data['service-page.service-description'].value[0].text,
+      title: results.data['service-page.service-title'].value[0].text
+    };
+
+    render(context, template, templateOptions, function () {
+      var $section = $('#publicidad-service');
+
+      $section.find('.section-carousel').slick({
+        dots: true,
+        infinite: true,
+        speed: 500,
+        autoplay: true,
+        slidesToShow: 1
+      });
+    });
+  });
 }
 
-module.exports = services;
+module.exports = publicidad;
 
-},{"../../utils/prismic-model":61,"../../utils/render":62,"./services.pug":79}],77:[function(require,module,exports){
+},{"../../utils/prismic-model":61,"../../utils/render":62,"./publicidad.pug":75,"slick-carousel":56}],75:[function(require,module,exports){
+var pug = require('pug-runtime');
+module.exports=template;function pug_attr(t,e,n,f){return e!==!1&&null!=e&&(e||"class"!==t&&"style"!==t)?e===!0?" "+(f?t:t+'="'+t+'"'):("function"==typeof e.toJSON&&(e=e.toJSON()),"string"==typeof e||(e=JSON.stringify(e),n||e.indexOf('"')===-1)?(n&&(e=pug_escape(e))," "+t+'="'+e+'"'):" "+t+"='"+e.replace(/'/g,"&#39;")+"'"):""}
+function pug_escape(e){var a=""+e,t=pug_match_html.exec(a);if(!t)return e;var r,c,n,s="";for(r=t.index,c=0;r<a.length;r++){switch(a.charCodeAt(r)){case 34:n="&quot;";break;case 38:n="&amp;";break;case 60:n="&lt;";break;case 62:n="&gt;";break;default:continue}c!==r&&(s+=a.substring(c,r)),c=r+1,s+=n}return c!==r?s+a.substring(c,r):s}
+var pug_match_html=/["&<>]/;
+function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
+;var locals_for_with = (locals || {});(function (carouselImages, description, title) {var pug_indent = [];
+
+pug_html = pug_html + "\n\u003Cdiv class=\"service-section\" id=\"publicidad-service\"\u003E";
+
+pug_html = pug_html + "\n  \u003Cdiv class=\"section-carousel\"\u003E";
+
+// iterate carouselImages
+;(function(){
+  var $$obj = carouselImages;
+  if ('number' == typeof $$obj.length) {
+      for (var pug_index0 = 0, $$l = $$obj.length; pug_index0 < $$l; pug_index0++) {
+        var val = $$obj[pug_index0];
+
+pug_html = pug_html + "\n    \u003Cdiv class=\"carousel-image\"\u003E";
+
+pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, true, false)) + "\u002F\u003E\u003C\u002Fdiv\u003E";
+      }
+  } else {
+    var $$l = 0;
+    for (var pug_index0 in $$obj) {
+      $$l++;
+      var val = $$obj[pug_index0];
+
+pug_html = pug_html + "\n    \u003Cdiv class=\"carousel-image\"\u003E";
+
+pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, true, false)) + "\u002F\u003E\u003C\u002Fdiv\u003E";
+    }
+  }
+}).call(this);
+
+pug_html = pug_html + "\n  \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n  \u003Cdiv class=\"section-inner container\"\u003E";
+
+pug_html = pug_html + "\n    \u003Cdiv class=\"row\"\u003E";
+
+pug_html = pug_html + "\n      \u003Cdiv class=\"twelve columns\"\u003E";
+
+pug_html = pug_html + "\n        \u003Cdiv class=\"section-title\"\u003E";
+
+pug_html = pug_html + (pug_escape(null == (pug_interp = title) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n        \u003Cdiv class=\"section-description\"\u003E";
+
+pug_html = pug_html + (pug_escape(null == (pug_interp = description) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";}.call(this,"carouselImages" in locals_for_with?locals_for_with.carouselImages:typeof carouselImages!=="undefined"?carouselImages:undefined,"description" in locals_for_with?locals_for_with.description:typeof description!=="undefined"?description:undefined,"title" in locals_for_with?locals_for_with.title:typeof title!=="undefined"?title:undefined));return pug_html;}
+
+},{"fs":1,"pug-runtime":55}],76:[function(require,module,exports){
 'use strict';
 
 var callPrismic = require('../../../utils/prismic-model');
@@ -27350,7 +27416,7 @@ function real_state(context, next) {
 
 module.exports = real_state;
 
-},{"../../../utils/prismic-model":61,"../../../utils/render":62,"./real_state.pug":78}],78:[function(require,module,exports){
+},{"../../../utils/prismic-model":61,"../../../utils/render":62,"./real_state.pug":77}],77:[function(require,module,exports){
 var pug = require('pug-runtime');
 module.exports=template;function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
 var pug_indent = [];
@@ -27363,20 +27429,7 @@ pug_html = pug_html + "\n\u003Cp\u003E";
 
 pug_html = pug_html + "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\u003C\u002Fp\u003E";return pug_html;}
 
-},{"fs":1,"pug-runtime":55}],79:[function(require,module,exports){
-var pug = require('pug-runtime');
-module.exports=template;function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
-var pug_indent = [];
-
-pug_html = pug_html + "\n\u003Ch1 class=\"first-title\"\u003E";
-
-pug_html = pug_html + "Nuestros servicios\u003C\u002Fh1\u003E";
-
-pug_html = pug_html + "\n\u003Cp\u003E";
-
-pug_html = pug_html + "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\u003C\u002Fp\u003E";return pug_html;}
-
-},{"fs":1,"pug-runtime":55}],80:[function(require,module,exports){
+},{"fs":1,"pug-runtime":55}],78:[function(require,module,exports){
 'use strict';
 
 var callPrismic = require('../../../utils/prismic-model');
@@ -27389,7 +27442,7 @@ function turism(context, next) {
 
 module.exports = turism;
 
-},{"../../../utils/prismic-model":61,"../../../utils/render":62,"./turism.pug":81}],81:[function(require,module,exports){
+},{"../../../utils/prismic-model":61,"../../../utils/render":62,"./turism.pug":79}],79:[function(require,module,exports){
 var pug = require('pug-runtime');
 module.exports=template;function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
 var pug_indent = [];
