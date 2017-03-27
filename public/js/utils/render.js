@@ -6,7 +6,7 @@ function render (context, template, options, cb) {
   } else {
     ctx = parseContext(context);
   }
-  
+
   $('.main-nav')
     .removeClass()
     .addClass('main-nav ' + ctx.classText);
@@ -18,7 +18,9 @@ function render (context, template, options, cb) {
 
   $('html, body').scrollTop(0);
 
-  cb();
+  if (cb && typeof cb === 'function') {
+    cb();
+  }
 }
 
 module.exports = render;
