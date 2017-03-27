@@ -1,5 +1,5 @@
 const parseContext = require('./parse-context');
-function render (context, template, options) {
+function render (context, template, options, cb) {
   let ctx = {};
   if (typeof context === 'string') {
     ctx.classText = context;
@@ -17,6 +17,8 @@ function render (context, template, options) {
     .html(template(options));
 
   $('html, body').scrollTop(0);
+
+  cb();
 }
 
 module.exports = render;

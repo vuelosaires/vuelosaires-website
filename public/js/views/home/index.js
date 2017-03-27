@@ -3,7 +3,10 @@ const render = require('../../utils/render');
 const template = require('./home.pug');
 
 function home (context, next) {
-  var carouselResults = callPrismic('homepage', (results, err) => {
+  var carouselResults = callPrismic({ documentType: 'homepage' }, (results, err) => {
+    console.log(results);
+    if (err || !results.length || !results) return new Error('Bad request.');
+
     var videoURL = results[0].data['homepage.video-link'].value[0].text;
 
     if (!videoURL || !(typeof videoURL == 'string') ) {

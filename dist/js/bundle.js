@@ -15019,8 +15019,7 @@ var parseDoc = function(json) {
     json.last_publication_date,
     json.lang,
     json.alternate_languages,
-    fragments,
-    json.data
+    fragments
   );
 };
 
@@ -15942,7 +15941,7 @@ WithFragments.prototype = {
  * @global
  * @alias Doc
  */
-function Document(id, uid, type, href, tags, slugs, firstPublicationDate, lastPublicationDate, lang, alternateLanguages, data, rawJSON) {
+function Document(id, uid, type, href, tags, slugs, firstPublicationDate, lastPublicationDate, lang, alternateLanguages, data) {
   /**
    * The ID of the document
    * @type {string}
@@ -15979,14 +15978,9 @@ function Document(id, uid, type, href, tags, slugs, firstPublicationDate, lastPu
    */
   this.slugs = slugs;
   /**
-   * same as fragments
+   * The original JSON data from the API
    */
   this.data = data;
-
-  /**
-   * raw JSON from the API
-   */
-  this.rawJSON = rawJSON;
   /**
    * The first publication date of the document
    */
@@ -18572,18 +18566,58 @@ module.exports = {
 }).call(this,require('_process'))
 },{"../package.json":30,"_process":32,"http":46,"https":9,"url":52}],30:[function(require,module,exports){
 module.exports={
-  "name": "prismic.io",
-  "description": "JavaScript development kit for prismic.io",
-  "license": "Apache-2.0",
-  "url": "https://github.com/prismicio/javascript-kit",
-  "keywords": [
-    "prismic",
-    "prismic.io",
-    "cms",
-    "content",
-    "api"
+  "_args": [
+    [
+      {
+        "raw": "prismic.io",
+        "scope": null,
+        "escapedName": "prismic.io",
+        "name": "prismic.io",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/Users/Cherna/dev/vuelosaires"
+    ]
   ],
-  "version": "3.5.4",
+  "_from": "prismic.io@latest",
+  "_id": "prismic.io@3.5.0",
+  "_inCache": true,
+  "_location": "/prismic.io",
+  "_nodeVersion": "6.9.4",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/prismic.io-3.5.0.tgz_1489506140410_0.9444746840745211"
+  },
+  "_npmUser": {
+    "name": "arnaudlewis",
+    "email": "arnaud.lewis@gmail.com"
+  },
+  "_npmVersion": "3.10.10",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "prismic.io",
+    "scope": null,
+    "escapedName": "prismic.io",
+    "name": "prismic.io",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/prismic.io/-/prismic.io-3.5.0.tgz",
+  "_shasum": "1d4c5cad2b124fc85a9e564676e6e4aab4f96aa7",
+  "_shrinkwrap": null,
+  "_spec": "prismic.io",
+  "_where": "/Users/Cherna/dev/vuelosaires",
+  "bugs": {
+    "url": "https://github.com/prismicio/javascript-kit/issues"
+  },
+  "dependencies": {},
+  "description": "JavaScript development kit for prismic.io",
   "devDependencies": {
     "babel-preset-es2015": "^6.3.13",
     "babelify": "^7.2.0",
@@ -18600,54 +18634,49 @@ module.exports={
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@github.com/prismicio/javascript-kit.git"
-  },
-  "main": "lib/prismic.js",
-  "scripts": {
-    "build": "scripts/browser.js",
-    "postbuild": "npm run docs",
-    "uglify": "uglifyjs -c -o=dist/prismic.io.min.js dist/prismic.io.js",
-    "preuglify": "npm run build",
-    "prepublish": "npm run uglify",
-    "lint": "eslint lib",
-    "test": "istanbul cover _mocha -- -t 3000 test/",
-    "posttest": "eslint lib",
-    "predocs": "rimraf ./docs",
-    "docs": "jsdoc lib/*.js README.md -d docs"
-  },
-  "gitHead": "4ed6c6c9bade8f09fb84b3c845800668f36ecd18",
-  "bugs": {
-    "url": "https://github.com/prismicio/javascript-kit/issues"
-  },
-  "homepage": "https://github.com/prismicio/javascript-kit#readme",
-  "_id": "prismic.io@3.5.4",
-  "_shasum": "0cb0cca76b10e26425bf543e569dbfb35729045b",
-  "_from": "prismic.io@>=3.5.0 <4.0.0",
-  "_npmVersion": "3.10.10",
-  "_nodeVersion": "6.9.4",
-  "_npmUser": {
-    "name": "arnaudlewis",
-    "email": "arnaud.lewis@gmail.com"
-  },
+  "directories": {},
   "dist": {
-    "shasum": "0cb0cca76b10e26425bf543e569dbfb35729045b",
-    "tarball": "https://registry.npmjs.org/prismic.io/-/prismic.io-3.5.4.tgz"
+    "shasum": "1d4c5cad2b124fc85a9e564676e6e4aab4f96aa7",
+    "tarball": "https://registry.npmjs.org/prismic.io/-/prismic.io-3.5.0.tgz"
   },
+  "gitHead": "d9d381f0ee0845c34f41106e3dbc26a996ce7bdb",
+  "homepage": "https://github.com/prismicio/javascript-kit#readme",
+  "keywords": [
+    "prismic",
+    "prismic.io",
+    "cms",
+    "content",
+    "api"
+  ],
+  "license": "Apache-2.0",
+  "main": "lib/prismic.js",
   "maintainers": [
     {
       "name": "sre",
       "email": "srenault.contact@gmail.com"
     }
   ],
-  "_npmOperationalInternal": {
-    "host": "packages-18-east.internal.npmjs.com",
-    "tmp": "tmp/prismic.io-3.5.4.tgz_1490282169798_0.18261191598139703"
+  "name": "prismic.io",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/prismicio/javascript-kit.git"
   },
-  "directories": {},
-  "_resolved": "https://registry.npmjs.org/prismic.io/-/prismic.io-3.5.4.tgz",
-  "readme": "ERROR: No README data found!"
+  "scripts": {
+    "build": "scripts/browser.js",
+    "docs": "jsdoc lib/*.js README.md -d docs",
+    "lint": "eslint lib",
+    "postbuild": "npm run docs",
+    "posttest": "eslint lib",
+    "predocs": "rimraf ./docs",
+    "prepublish": "npm run uglify",
+    "preuglify": "npm run build",
+    "test": "istanbul cover _mocha -- -t 3000 test/",
+    "uglify": "uglifyjs -c -o=dist/prismic.io.min.js dist/prismic.io.js"
+  },
+  "url": "https://github.com/prismicio/javascript-kit",
+  "version": "3.5.0"
 }
 
 },{}],31:[function(require,module,exports){
@@ -21091,14 +21120,6 @@ function done(stream, er, data) {
 
 module.exports = Writable;
 
-// It seems a linked list but it is not
-// there will be only 2 of these for each stream
-function CorkedRequest(state) {
-  this.next = null;
-  this.entry = null;
-  this.finish = onCorkedFinish.bind(undefined, this, state);
-}
-
 /*<replacement>*/
 var processNextTick = require('process-nextick-args');
 /*</replacement>*/
@@ -21642,7 +21663,6 @@ function CorkedRequest(state) {
     }
   };
 }
-
 }).call(this,require('_process'))
 },{"./_stream_duplex":38,"_process":32,"buffer":5,"buffer-shims":4,"core-util-is":7,"events":8,"inherits":11,"process-nextick-args":31,"util-deprecate":54}],43:[function(require,module,exports){
 'use strict';
@@ -26888,6 +26908,7 @@ var notFound = require('./views/base/notfound.pug');
 // Views
 var home = require('./views/home/index');
 var about = require('./views/about/index');
+var publicidad = require('./views/publicidad/index');
 
 // Vendor global scripts
 var pace = require('pace-progress');
@@ -26947,6 +26968,8 @@ $(document).ready(function () {
 
   page('/about', about);
 
+  page('/publicidad', publicidad);
+
   // 404 handler
   // Executes when no other route was found
   page('*', function () {
@@ -26956,7 +26979,7 @@ $(document).ready(function () {
   page();
 });
 
-},{"./utils/init-script":58,"./utils/parse-context":59,"./utils/render":61,"./utils/set-title":62,"./views/about/index":65,"./views/base/notfound.pug":66,"./views/home/index":68,"pace-progress":15,"page":16,"wowjs":55}],58:[function(require,module,exports){
+},{"./utils/init-script":58,"./utils/parse-context":59,"./utils/render":61,"./utils/set-title":62,"./views/about/index":65,"./views/base/notfound.pug":66,"./views/home/index":68,"./views/publicidad/index":69,"pace-progress":15,"page":16,"wowjs":55}],58:[function(require,module,exports){
 'use strict';
 
 function init() {
@@ -26995,13 +27018,24 @@ module.exports = parseContext;
 },{}],60:[function(require,module,exports){
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var Prismic = require('prismic.io');
 
-function callPrismic(documentType, callback) {
-  var predicates = documentType ? Prismic.Predicates.at("document.type", documentType) : '';
+function callPrismic(predicates, callback) {
+  // predicates is needed and should be an object
+  if (!predicates || (typeof predicates === 'undefined' ? 'undefined' : _typeof(predicates)) !== 'object') return;
+  // predicates can have documentType or tag name as strings
+  var docPredicates = predicates.documentType ? predicates.documentType : '';
+  var tagPredicates = predicates.tags ? predicates.tags : '';
+
+  var newPredicates = [Prismic.Predicates.at('document.type', docPredicates)];
+  if (tagPredicates) {
+    newPredicates.push(Prismic.Predicates.at('document.tags', [tagPredicates]));
+  }
   return Prismic.api("http://vuelosaires.prismic.io/api", function (error, api) {
-    api.query(predicates, {}, function (err, response) {
-      // An empty query will return all the documents
+    if (error) return new Error('Can\'t connect to the prismic API.');
+    api.query(newPredicates, {}, function (err, response) {
       callback(response.results, err, response);
     });
   });
@@ -27013,7 +27047,7 @@ module.exports = callPrismic;
 'use strict';
 
 var parseContext = require('./parse-context');
-function render(context, template, options) {
+function render(context, template, options, cb) {
   var ctx = {};
   if (typeof context === 'string') {
     ctx.classText = context;
@@ -27026,6 +27060,8 @@ function render(context, template, options) {
   $('.main-content').removeClass().addClass('main-content ' + ctx.classText).html(template(options));
 
   $('html, body').scrollTop(0);
+
+  cb();
 }
 
 module.exports = render;
@@ -27148,7 +27184,10 @@ var render = require('../../utils/render');
 var template = require('./home.pug');
 
 function home(context, next) {
-  var carouselResults = callPrismic('homepage', function (results, err) {
+  var carouselResults = callPrismic({ documentType: 'homepage' }, function (results, err) {
+    console.log(results);
+    if (err || !results.length || !results) return new Error('Bad request.');
+
     var videoURL = results[0].data['homepage.video-link'].value[0].text;
 
     if (!videoURL || !(typeof videoURL == 'string')) {
@@ -27224,4 +27263,94 @@ function createHomeVideo($section, videoId) {
 
 module.exports = home;
 
-},{"../../utils/prismic-model":60,"../../utils/render":61,"./home.pug":67}]},{},[57]);
+},{"../../utils/prismic-model":60,"../../utils/render":61,"./home.pug":67}],69:[function(require,module,exports){
+'use strict';
+
+var callPrismic = require('../../utils/prismic-model');
+var render = require('../../utils/render');
+var template = require('./publicidad.pug');
+var slick = require('slick-carousel');
+
+function publicidad(context, next) {
+  callPrismic({
+    documentType: 'service-page',
+    tags: 'publicidad'
+  }, function (results, err) {
+    if (err) return new Error('Bad Request');
+
+    results = results[0];
+    var templateOptions = {
+      carouselImages: results.data['service-page.carousel-images'].value,
+      description: results.data['service-page.service-description'].value[0].text,
+      title: results.data['service-page.service-title'].value[0].text
+    };
+
+    render(context, template, templateOptions, function () {
+      var $section = $('#publicidad-service');
+
+      $section.find('.section-carousel').slick({
+        dots: true,
+        infinite: true,
+        speed: 500,
+        autoplay: true,
+        slidesToShow: 1
+      });
+    });
+  });
+}
+
+module.exports = publicidad;
+
+},{"../../utils/prismic-model":60,"../../utils/render":61,"./publicidad.pug":70,"slick-carousel":45}],70:[function(require,module,exports){
+var pug = require('pug-runtime');
+module.exports=template;function pug_attr(t,e,n,f){return e!==!1&&null!=e&&(e||"class"!==t&&"style"!==t)?e===!0?" "+(f?t:t+'="'+t+'"'):("function"==typeof e.toJSON&&(e=e.toJSON()),"string"==typeof e||(e=JSON.stringify(e),n||e.indexOf('"')===-1)?(n&&(e=pug_escape(e))," "+t+'="'+e+'"'):" "+t+"='"+e.replace(/'/g,"&#39;")+"'"):""}
+function pug_escape(e){var a=""+e,t=pug_match_html.exec(a);if(!t)return e;var r,c,n,s="";for(r=t.index,c=0;r<a.length;r++){switch(a.charCodeAt(r)){case 34:n="&quot;";break;case 38:n="&amp;";break;case 60:n="&lt;";break;case 62:n="&gt;";break;default:continue}c!==r&&(s+=a.substring(c,r)),c=r+1,s+=n}return c!==r?s+a.substring(c,r):s}
+var pug_match_html=/["&<>]/;
+function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
+;var locals_for_with = (locals || {});(function (carouselImages, description, title) {var pug_indent = [];
+
+pug_html = pug_html + "\n\u003Cdiv class=\"service-section\" id=\"publicidad-service\"\u003E";
+
+pug_html = pug_html + "\n  \u003Cdiv class=\"section-carousel\"\u003E";
+
+// iterate carouselImages
+;(function(){
+  var $$obj = carouselImages;
+  if ('number' == typeof $$obj.length) {
+      for (var pug_index0 = 0, $$l = $$obj.length; pug_index0 < $$l; pug_index0++) {
+        var val = $$obj[pug_index0];
+
+pug_html = pug_html + "\n    \u003Cdiv class=\"carousel-image\"\u003E";
+
+pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, true, false)) + "\u002F\u003E\u003C\u002Fdiv\u003E";
+      }
+  } else {
+    var $$l = 0;
+    for (var pug_index0 in $$obj) {
+      $$l++;
+      var val = $$obj[pug_index0];
+
+pug_html = pug_html + "\n    \u003Cdiv class=\"carousel-image\"\u003E";
+
+pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, true, false)) + "\u002F\u003E\u003C\u002Fdiv\u003E";
+    }
+  }
+}).call(this);
+
+pug_html = pug_html + "\n  \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n  \u003Cdiv class=\"section-inner container\"\u003E";
+
+pug_html = pug_html + "\n    \u003Cdiv class=\"row\"\u003E";
+
+pug_html = pug_html + "\n      \u003Cdiv class=\"twelve columns\"\u003E";
+
+pug_html = pug_html + "\n        \u003Cdiv class=\"section-title\"\u003E";
+
+pug_html = pug_html + (pug_escape(null == (pug_interp = title) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n        \u003Cdiv class=\"section-description\"\u003E";
+
+pug_html = pug_html + (pug_escape(null == (pug_interp = description) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";}.call(this,"carouselImages" in locals_for_with?locals_for_with.carouselImages:typeof carouselImages!=="undefined"?carouselImages:undefined,"description" in locals_for_with?locals_for_with.description:typeof description!=="undefined"?description:undefined,"title" in locals_for_with?locals_for_with.title:typeof title!=="undefined"?title:undefined));return pug_html;}
+
+},{"fs":3,"pug-runtime":33}]},{},[57]);
