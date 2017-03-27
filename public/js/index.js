@@ -10,6 +10,12 @@ const notFound = require('./views/base/notfound.pug');
 // Views
 const home = require('./views/home/index');
 const about = require('./views/about/index');
+const services = require('./views/services/index');
+const advertising = require('./views/services/advertising/index');
+const real_state = require('./views/services/real_state/index');
+const turism = require('./views/services/turism/index');
+const contact = require('./views/contact/index');
+const policy = require('./views/policy/index');
 
 // Vendor global scripts
 const pace = require('pace-progress');
@@ -66,6 +72,18 @@ $(document).ready(() => {
   page('/', home);
 
   page('/about', about);
+
+  page('/services', services);
+
+  page('/contact', contact);
+
+  page('/policy', policy);
+
+  page('/turism', turism);
+
+  page('/real_state', real_state);
+
+  page('/advertising', advertising);
 
   // 404 handler
   // Executes when no other route was found
