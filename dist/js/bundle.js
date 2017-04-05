@@ -26882,8 +26882,8 @@ var notFound = require('./views/base/notfound.pug');
 var home = require('./views/home/index');
 var about = require('./views/about/index');
 var publicidad = require('./views/publicidad/index');
-var real_state = require('./views/services/real_state/index');
-var turism = require('./views/services/turism/index');
+var real_state = require('./views/real_state/index');
+var turism = require('./views/turism/index');
 var contact = require('./views/contact/index');
 var policy = require('./views/policy/index');
 
@@ -26964,7 +26964,7 @@ $(document).ready(function () {
   page();
 });
 
-},{"./utils/init-script":59,"./utils/parse-context":60,"./utils/render":62,"./utils/set-title":63,"./views/about/index":66,"./views/base/notfound.pug":67,"./views/contact/index":69,"./views/home/index":71,"./views/policy/index":72,"./views/publicidad/index":74,"./views/services/real_state/index":76,"./views/services/turism/index":78,"pace-progress":39,"page":40,"wowjs":57}],59:[function(require,module,exports){
+},{"./utils/init-script":59,"./utils/parse-context":60,"./utils/render":62,"./utils/set-title":63,"./views/about/index":66,"./views/base/notfound.pug":67,"./views/contact/index":69,"./views/home/index":71,"./views/policy/index":72,"./views/publicidad/index":74,"./views/real_state/index":76,"./views/turism/index":78,"pace-progress":39,"page":40,"wowjs":57}],59:[function(require,module,exports){
 'use strict';
 
 function init() {
@@ -27092,27 +27092,21 @@ var pug = require('pug-runtime');
 module.exports=template;function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
 var pug_indent = [];
 
-pug_html = pug_html + "\n\u003Ch1 class=\"first-title\"\u003E";
+pug_html = pug_html + "\n\u003Cdiv id=\"about\"\u003E";
+
+pug_html = pug_html + "\n  \u003Cdiv class=\"container\"\u003E";
+
+pug_html = pug_html + "\n    \u003Cdiv class=\"row\"\u003E";
+
+pug_html = pug_html + "\n      \u003Cdiv class=\"seven columns\"\u003E";
+
+pug_html = pug_html + "\n        \u003Ch1 class=\"first-title\"\u003E";
 
 pug_html = pug_html + "Acerca de nosotros\u003C\u002Fh1\u003E";
 
-pug_html = pug_html + "\n\u003Cp\u003E";
+pug_html = pug_html + "\n        \u003Cp\u003E";
 
-pug_html = pug_html + "Vuelos Aires es una empresa Argentina que presta servicios de blablabla\u003C\u002Fp\u003E";
-
-pug_html = pug_html + "\n\u003Cdiv class=\"single-item\"\u003E";
-
-pug_html = pug_html + "\n  \u003Cdiv class=\"carousel-item\"\u003E";
-
-pug_html = pug_html + "\u003Cimg src=\"http:\u002F\u002Fplacehold.it\u002F350x150\"\u002F\u003E\u003C\u002Fdiv\u003E";
-
-pug_html = pug_html + "\n  \u003Cdiv class=\"carousel-item\"\u003E";
-
-pug_html = pug_html + "\u003Cimg src=\"http:\u002F\u002Fplacehold.it\u002F350x160\"\u002F\u003E\u003C\u002Fdiv\u003E";
-
-pug_html = pug_html + "\n  \u003Cdiv class=\"carousel-item\"\u003E";
-
-pug_html = pug_html + "\u003Cimg src=\"http:\u002F\u002Fplacehold.it\u002F350x170\"\u002F\u003E\u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";return pug_html;}
+pug_html = pug_html + "Vuelos Aires es una empresa Argentina que presta servicios de blablabla Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. \u003C\u002Fp\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";return pug_html;}
 
 },{"fs":1,"pug-runtime":55}],66:[function(require,module,exports){
 'use strict';
@@ -27124,14 +27118,14 @@ var slick = require('slick-carousel');
 
 function about(context, next) {
   render(context, template);
-  $('.single-item').slick({
-    dots: true,
-    speed: 500,
-    centerMode: true,
-    autoplay: true,
-    autoplaySpeed: 3 * 1000,
-    infinite: true
-  });
+  // $('.single-item').slick({
+  //   dots: true,
+  //   speed: 500,
+  //   centerMode: true,
+  //   autoplay: true,
+  //   autoplaySpeed: 3 * 1000,
+  //   infinite: true
+  // });
 }
 
 module.exports = about;
@@ -27190,15 +27184,173 @@ pug_html = pug_html + "\n      \u003Cdiv id=\"home-video\"\u003E\u003C\u002Fdiv\
 
 pug_html = pug_html + "\n  \u003Cdiv class=\"home-overlay-content\"\u003E";
 
-pug_html = pug_html + "\n    \u003Cdiv\u003E";
+pug_html = pug_html + "\n    \u003Cdiv class=\"container\"\u003E";
+
+pug_html = pug_html + "\n      \u003Cdiv class=\"row\"\u003E";
+
+pug_html = pug_html + "\n        \u003Cdiv class=\"twelve columns\"\u003E";
+
+pug_html = pug_html + "\n          \u003Cdiv\u003E";
 
 pug_html = pug_html + "The good thing about drones\u003C\u002Fdiv\u003E";
 
 pug_html = pug_html + "\u003Cbr\u002F\u003E";
 
-pug_html = pug_html + "\n    \u003Cdiv\u003E";
+pug_html = pug_html + "\n          \u003Cdiv\u003E";
 
-pug_html = pug_html + "is that they rock\u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";return pug_html;}
+pug_html = pug_html + "is that they rock\u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n\u003Cdiv id=\"home-body\"\u003E";
+
+pug_html = pug_html + "\n  \u003Cdiv id=\"home-updates\"\u003E";
+
+pug_html = pug_html + "\n    \u003Cdiv class=\"container\"\u003E";
+
+pug_html = pug_html + "\n      \u003Cdiv class=\"row\"\u003E";
+
+pug_html = pug_html + "\n        \u003Cdiv class=\"twelve column\"\u003E";
+
+pug_html = pug_html + "\n          \u003Ch2\u003E";
+
+pug_html = pug_html + "Updates\u003C\u002Fh2\u003E";
+
+pug_html = pug_html + "\n          \u003Cp\u003E";
+
+pug_html = pug_html + "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.\u003C\u002Fp\u003E";
+
+pug_html = pug_html + "\n          \u003Cdiv id=\"home-updates-grid\"\u003E";
+
+pug_html = pug_html + "\n            \u003Cdiv class=\"row update-grid-row\"\u003E";
+
+pug_html = pug_html + "\n              \u003Cdiv class=\"four columns\"\u003E";
+
+pug_html = pug_html + "\n                \u003Cdiv class=\"update-thumb\"\u003E";
+
+pug_html = pug_html + "\u003Cimg class=\"update-thumb-pic\" src=\"https:\u002F\u002Fdummyimage.com\u002Fhd1080\"\u002F\u003E\u003C\u002Fdiv\u003E\n              \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n              \u003Cdiv class=\"four columns\"\u003E";
+
+pug_html = pug_html + "\n                \u003Cdiv class=\"update-thumb\"\u003E";
+
+pug_html = pug_html + "\u003Cimg class=\"update-thumb-pic\" src=\"https:\u002F\u002Fdummyimage.com\u002Fhd1080\"\u002F\u003E\u003C\u002Fdiv\u003E\n              \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n              \u003Cdiv class=\"four columns\"\u003E";
+
+pug_html = pug_html + "\n                \u003Cdiv class=\"update-thumb\"\u003E";
+
+pug_html = pug_html + "\u003Cimg class=\"update-thumb-pic\" src=\"https:\u002F\u002Fdummyimage.com\u002Fhd1080\"\u002F\u003E\u003C\u002Fdiv\u003E\n              \u003C\u002Fdiv\u003E\n            \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n            \u003Cdiv class=\"row update-grid-row\"\u003E";
+
+pug_html = pug_html + "\n              \u003Cdiv class=\"four columns\"\u003E";
+
+pug_html = pug_html + "\n                \u003Cdiv class=\"update-thumb\"\u003E";
+
+pug_html = pug_html + "\u003Cimg class=\"update-thumb-pic\" src=\"https:\u002F\u002Fdummyimage.com\u002Fhd1080\"\u002F\u003E\u003C\u002Fdiv\u003E\n              \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n              \u003Cdiv class=\"four columns\"\u003E";
+
+pug_html = pug_html + "\n                \u003Cdiv class=\"update-thumb\"\u003E";
+
+pug_html = pug_html + "\u003Cimg class=\"update-thumb-pic\" src=\"https:\u002F\u002Fdummyimage.com\u002Fhd1080\"\u002F\u003E\u003C\u002Fdiv\u003E\n              \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n              \u003Cdiv class=\"four columns\"\u003E";
+
+pug_html = pug_html + "\n                \u003Cdiv class=\"update-thumb\"\u003E";
+
+pug_html = pug_html + "\u003Cimg class=\"update-thumb-pic\" src=\"https:\u002F\u002Fdummyimage.com\u002Fhd1080\"\u002F\u003E\u003C\u002Fdiv\u003E\n              \u003C\u002Fdiv\u003E\n            \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n            \u003Cdiv class=\"row update-grid-row\"\u003E";
+
+pug_html = pug_html + "\n              \u003Cdiv class=\"four columns\"\u003E";
+
+pug_html = pug_html + "\n                \u003Cdiv class=\"update-thumb\"\u003E";
+
+pug_html = pug_html + "\u003Cimg class=\"update-thumb-pic\" src=\"https:\u002F\u002Fdummyimage.com\u002Fhd1080\"\u002F\u003E\u003C\u002Fdiv\u003E\n              \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n              \u003Cdiv class=\"four columns\"\u003E";
+
+pug_html = pug_html + "\n                \u003Cdiv class=\"update-thumb\"\u003E";
+
+pug_html = pug_html + "\u003Cimg class=\"update-thumb-pic\" src=\"https:\u002F\u002Fdummyimage.com\u002Fhd1080\"\u002F\u003E\u003C\u002Fdiv\u003E\n              \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n              \u003Cdiv class=\"four columns\"\u003E";
+
+pug_html = pug_html + "\n                \u003Cdiv class=\"update-thumb\"\u003E";
+
+pug_html = pug_html + "\u003Cimg class=\"update-thumb-pic\" src=\"https:\u002F\u002Fdummyimage.com\u002Fhd1080\"\u002F\u003E\u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n                \u003C!-- A grid with recently uploaded video and images will be added here. When :hover--\u003E";
+
+pug_html = pug_html + "\n                \u003C!-- an overlay appears with a short description of the video--\u003E\n              \u003C\u002Fdiv\u003E\n            \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n            \u003Cdiv class=\"row\"\u003E";
+
+pug_html = pug_html + "\n              \u003Cdiv class=\"twelve columns\"\u003E";
+
+pug_html = pug_html + "\n                \u003Chr class=\"standard-ruler\"\u002F\u003E\n              \u003C\u002Fdiv\u003E\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n  \u003Cdiv class=\"services-container\"\u003E";
+
+pug_html = pug_html + "\n    \u003Cdiv class=\"container\"\u003E";
+
+pug_html = pug_html + "\n      \u003Cdiv class=\"row\"\u003E";
+
+pug_html = pug_html + "\n        \u003Cdiv class=\"twelve columns\"\u003E";
+
+pug_html = pug_html + "\n          \u003Ch2\u003E";
+
+pug_html = pug_html + "Nuestros Servicios\u003C\u002Fh2\u003E";
+
+pug_html = pug_html + "\n          \u003Cdiv class=\"row\"\u003E";
+
+pug_html = pug_html + "\n            \u003Cdiv class=\"four columns service-module\"\u003E";
+
+pug_html = pug_html + "\u003Cimg class=\"module-pic\" src=\"https:\u002F\u002Fstatic1.squarespace.com\u002Fstatic\u002F5547ba95e4b06698c531adc2\u002Ft\u002F55617d2ae4b004a8dfc586bb\u002F1432423570132\u002Fcircular+placeholder.jpg\"\u002F\u003E";
+
+pug_html = pug_html + "\n              \u003Ch3 class=\"service-title\"\u003E";
+
+pug_html = pug_html + "Inmobiliaria\u003C\u002Fh3\u003E";
+
+pug_html = pug_html + "\n              \u003Cp class=\"service-description\"\u003E";
+
+pug_html = pug_html + "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\u003C\u002Fp\u003E";
+
+pug_html = pug_html + "\u003Ca class=\"services-more-link\" href=\"#\"\u003E";
+
+pug_html = pug_html + "Ver más\u003C\u002Fa\u003E\n            \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n            \u003Cdiv class=\"four columns service-module\"\u003E";
+
+pug_html = pug_html + "\u003Cimg class=\"module-pic\" src=\"https:\u002F\u002Fstatic1.squarespace.com\u002Fstatic\u002F5547ba95e4b06698c531adc2\u002Ft\u002F55617d2ae4b004a8dfc586bb\u002F1432423570132\u002Fcircular+placeholder.jpg\"\u002F\u003E";
+
+pug_html = pug_html + "\n              \u003Ch3 class=\"service-title\"\u003E";
+
+pug_html = pug_html + "Eventos\u003C\u002Fh3\u003E";
+
+pug_html = pug_html + "\n              \u003Cp class=\"service-description\"\u003E";
+
+pug_html = pug_html + "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\u003C\u002Fp\u003E";
+
+pug_html = pug_html + "\u003Ca class=\"services-more-link\" href=\"#\"\u003E";
+
+pug_html = pug_html + "Ver más\u003C\u002Fa\u003E\n            \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n            \u003Cdiv class=\"four columns service-module\"\u003E";
+
+pug_html = pug_html + "\u003Cimg class=\"module-pic\" src=\"https:\u002F\u002Fstatic1.squarespace.com\u002Fstatic\u002F5547ba95e4b06698c531adc2\u002Ft\u002F55617d2ae4b004a8dfc586bb\u002F1432423570132\u002Fcircular+placeholder.jpg\"\u002F\u003E";
+
+pug_html = pug_html + "\n              \u003Ch3 class=\"service-title\"\u003E";
+
+pug_html = pug_html + "Publicidad\u003C\u002Fh3\u003E";
+
+pug_html = pug_html + "\n              \u003Cp class=\"service-description\"\u003E";
+
+pug_html = pug_html + "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\u003C\u002Fp\u003E";
+
+pug_html = pug_html + "\u003Ca class=\"services-more-link\" href=\"#\"\u003E";
+
+pug_html = pug_html + "Ver más\u003C\u002Fa\u003E\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";return pug_html;}
 
 },{"fs":1,"pug-runtime":55}],71:[function(require,module,exports){
 'use strict';
@@ -27406,8 +27558,8 @@ pug_html = pug_html + (pug_escape(null == (pug_interp = description) ? "" : pug_
 },{"fs":1,"pug-runtime":55}],76:[function(require,module,exports){
 'use strict';
 
-var callPrismic = require('../../../utils/prismic-model');
-var render = require('../../../utils/render');
+var callPrismic = require('../../utils/prismic-model');
+var render = require('../../utils/render');
 var template = require('./real_state.pug');
 
 function real_state(context, next) {
@@ -27416,7 +27568,7 @@ function real_state(context, next) {
 
 module.exports = real_state;
 
-},{"../../../utils/prismic-model":61,"../../../utils/render":62,"./real_state.pug":77}],77:[function(require,module,exports){
+},{"../../utils/prismic-model":61,"../../utils/render":62,"./real_state.pug":77}],77:[function(require,module,exports){
 var pug = require('pug-runtime');
 module.exports=template;function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
 var pug_indent = [];
@@ -27432,8 +27584,8 @@ pug_html = pug_html + "Lorem ipsum dolor sit amet, consectetur adipisicing elit,
 },{"fs":1,"pug-runtime":55}],78:[function(require,module,exports){
 'use strict';
 
-var callPrismic = require('../../../utils/prismic-model');
-var render = require('../../../utils/render');
+var callPrismic = require('../../utils/prismic-model');
+var render = require('../../utils/render');
 var template = require('./turism.pug');
 
 function turism(context, next) {
@@ -27442,7 +27594,7 @@ function turism(context, next) {
 
 module.exports = turism;
 
-},{"../../../utils/prismic-model":61,"../../../utils/render":62,"./turism.pug":79}],79:[function(require,module,exports){
+},{"../../utils/prismic-model":61,"../../utils/render":62,"./turism.pug":79}],79:[function(require,module,exports){
 var pug = require('pug-runtime');
 module.exports=template;function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
 var pug_indent = [];

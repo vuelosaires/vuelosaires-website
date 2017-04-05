@@ -1,18 +1,59 @@
 #home
   width 100%
   height 100%
-  .home-overlay
+  .home-overlay // display: none until solving whole page covering issue
     background rgba(0,0,0,0.3)
     position fixed
     top 0
     left 0
     right 0
     bottom 0
+    display none
   .home-overlay-content
     font-size 60px
     position absolute
     top 400px
-    left 20px
+    left 30px
     line-height 0.8
     color white
     font-weight 300
+    width 95%
+#home-body
+  background-color white
+  #home-updates
+    h2
+      margin-top 75px
+      text-align center
+    p
+      padding 0 10px
+    #home-updates-grid
+      margin-top 20px
+      .update-grid-row
+        margin-bottom 30px
+        .update-thumb-pic
+          display block
+          width 90%
+          margin 0px auto
+      .standard-ruler
+        border gray 1px solid
+  .services-container
+    margin-top 75px
+    text-align center
+    padding-bottom 100px
+    .module-pic
+      display block
+      margin 0 auto 20px
+      width 80%
+    .service-title
+      text-align center
+    .service-description
+      text-align justify
+      padding 0px 10px
+    .services-more-link
+      display inline-block
+      padding 10px 20px
+      background-color lightgray
+      text-decoration none
+      transition background-color 0.5s ease-in-out
+      &:hover
+        background-color alpha(lightgray, 0.5)

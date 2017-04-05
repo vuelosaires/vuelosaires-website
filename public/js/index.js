@@ -11,8 +11,8 @@ const notFound = require('./views/base/notfound.pug');
 const home = require('./views/home/index');
 const about = require('./views/about/index');
 const publicidad = require('./views/publicidad/index');
-const real_state = require('./views/services/real_state/index');
-const turism = require('./views/services/turism/index');
+const real_state = require('./views/real_state/index');
+const turism = require('./views/turism/index');
 const contact = require('./views/contact/index');
 const policy = require('./views/policy/index');
 
