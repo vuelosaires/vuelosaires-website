@@ -1,9 +1,9 @@
 const callPrismic = require('../../utils/prismic-model');
 const render = require('../../utils/render');
-const template = require('./publicidad.pug');
+const template = require('./advertising.pug');
 const slick = require('slick-carousel');
 
-function publicidad (context, next) {
+function advertising (context, next) {
   callPrismic({
     documentType: 'service-page',
     tags: 'publicidad'
@@ -31,4 +31,4 @@ function publicidad (context, next) {
   });
 }
 
-module.exports = publicidad;
+module.exports = advertising;

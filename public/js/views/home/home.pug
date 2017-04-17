@@ -1,5 +1,7 @@
 #home
   .home-overlay
+  .overlay-shadow
+    img(src="src/overlay-video.png")
   .video-background.hide-opacity
     .video-foreground 
       #home-video
@@ -8,9 +10,14 @@
       .row
         .twelve.columns
           div The good thing about drones
-          br
           div is that they rock
-#home-body
-  include sections/home_updates
-  include sections/home_services
-      
+  .go-down
+    .container
+      .row
+        .five.columns
+        .two.columns
+          .down-arrow
+            img(src="src/arrow-down.png")
+        .five.columns
+  #home-body
+    include home_services

@@ -10,7 +10,7 @@ const notFound = require('./views/base/notfound.pug');
 // Views
 const home = require('./views/home/index');
 const about = require('./views/about/index');
-const publicidad = require('./views/publicidad/index');
+const advertising = require('./views/advertising/index');
 const real_state = require('./views/real_state/index');
 const turism = require('./views/turism/index');
 const contact = require('./views/contact/index');
@@ -72,7 +72,7 @@ $(document).ready(() => {
 
   page('/about', about);
 
-  page('/publicidad', publicidad);
+  page('/advertising', advertising);
 
   page('/contact', contact);
 

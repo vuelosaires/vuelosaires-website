@@ -10,50 +10,82 @@
     bottom 0
     display none
   .home-overlay-content
-    font-size 60px
+    font-size 4vw
     position absolute
-    top 400px
-    left 30px
-    line-height 0.8
+    top 200px
+    left 130px
     color white
     font-weight 300
-    width 95%
-#home-body
-  background-color white
-  #home-updates
-    h2
-      margin-top 75px
+    width 70%
+    height auto
+    padding 75px 20px
+    @media screen and (max-width: $phone) {
+      font-size 9vw
+      top 30px
+      left 10px
+      text-align left
+    }
+  .overlay-shadow
+    img
+      width 100%
+      height 100vh
+      position absolute
+  .go-down
+    .down-arrow
+      width 100px
+      height 100px
+      position absolute
+      top 80vh
+      left calc(50% - 50px)
+      z-index 0
+      cursor pointer
+      img
+        width: 100px
+        height: 100px
+        position: absolute
+        top: 0
+        transition: all 0.2s ease-in-out
+        &:hover
+          top: 10px
+  #home-body
+    position relative
+    top 100vh
+    background-color white
+    #services-container
       text-align center
-    p
-      padding 0 10px
-    #home-updates-grid
-      margin-top 20px
-      .update-grid-row
-        margin-bottom 30px
-        .update-thumb-pic
+      padding-bottom 100px
+      height calc(100vh - 50px)
+      @media screen and (max-width: $phone) {
+        height auto
+      }
+      h2
+        margin-top 50px
+        padding-bottom 30px
+        font-size 3em
+      .service-module
+        height auto
+        @media screen and (max-width: $phone) {
+          margin-bottom 50px
+        }
+        .module-pic
           display block
-          width 90%
-          margin 0px auto
-      .standard-ruler
-        border gray 1px solid
-  .services-container
-    margin-top 75px
-    text-align center
-    padding-bottom 100px
-    .module-pic
-      display block
-      margin 0 auto 20px
-      width 80%
-    .service-title
-      text-align center
-    .service-description
-      text-align justify
-      padding 0px 10px
-    .services-more-link
-      display inline-block
-      padding 10px 20px
-      background-color lightgray
-      text-decoration none
-      transition background-color 0.5s ease-in-out
-      &:hover
-        background-color alpha(lightgray, 0.5)
+          margin 0 auto 20px
+          width 60%
+        .service-title
+          text-align center
+          font-size 2em
+        .service-description
+          text-align center
+          padding 0px 10px
+          font-size 0.8em
+          color gray
+          min-height 50px
+        .services-more-link
+          font-size 0.8em
+          display inline-block
+          padding 5px 10px
+          background-color lightgray
+          text-decoration none
+          transition background-color 0.2s ease-in-out
+          &:hover
+            background-color alpha(lightgray, 0.5)
