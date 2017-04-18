@@ -43,11 +43,10 @@ function home (context, next) {
       })
     })
 
-
+    // Scrolling to service section
 
     $('.down-arrow').click(function(){
       let scrollTarget = $("#home-body").offset().top;
-      console.log(scrollTarget);
       $('html, body').animate({scrollTop: scrollTarget}, 800, function(){
         $('html, body').clearQueue();
       })

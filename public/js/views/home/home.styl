@@ -32,21 +32,25 @@
       position absolute
   .go-down
     .down-arrow
-      width 80px
-      height 80px
+      width 100px
+      height 100px
       position absolute
-      top 80vh
-      left calc(50% - 40px)
+      left calc(50% - 50px)
       z-index 0
+      opacity 0
       cursor pointer
+      animation down-arrow 1s
+      animation-timing-function cubic-bezier(0,.66,.2,1.01)
+      animation-delay 3s
+      animation-fill-mode forwards
+      @keyframes down-arrow
+        0% {opacity: 0; top: 110vh}
+        100% {opacity: 1; top: 80vh}
       img
         width: 100px
         height: 100px
+        transform scale(0.8)
         position: absolute
-        top: 0
-        transition: all 0.2s ease-in-out
-        &:hover
-          top: 10px
   #home-body
     position relative
     top 100vh
