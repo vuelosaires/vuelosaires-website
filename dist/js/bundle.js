@@ -27477,14 +27477,22 @@ function home(context, next) {
 
     $(window).scroll(function () {
       var wScroll = $(this).scrollTop();
-      console.log(wScroll);
+      // console.log(wScroll)
 
       $('.down-arrow').css({
         'transform': 'translate(0px, ' + wScroll / 2 + '%)'
       });
 
       $('.home-overlay-content').css({
-        'transform': 'translate(0px, ' + wScroll / 8 + '%)'
+        'transform': 'translate(0px, ' + wScroll / 10 + '%)'
+      });
+    });
+
+    $('.down-arrow').click(function () {
+      var scrollTarget = $("#home-body").offset().top;
+      console.log(scrollTarget);
+      $('html, body').animate({ scrollTop: scrollTarget }, 800, function () {
+        $('html, body').clearQueue();
       });
     });
 
