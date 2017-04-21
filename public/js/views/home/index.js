@@ -28,34 +28,40 @@ function home (context, next) {
 
     const $section = $('#home');
 
-    // Overlay arrrow scroll animation
+    // Overlay arrow scroll animation
 
     $(window).scroll(function(){
       var wScroll = $(this).scrollTop();
       // console.log(wScroll)
 
       $('.down-arrow').css({
-        'transform' : 'translate(0px, ' + wScroll / 2 + '%)'
+        'transform' : 'translate(0px, ' + wScroll / 2 + '%)',
+        'filter' : 'blur(' + wScroll / 50 + 'px)',
+        'transform' : 'scale(' + 1 / wScroll +')'
       })
 
       $('.home-overlay-content').css({
-        'transform' : 'translate(0px, ' + wScroll / 10 + '%)'
+        'transform' : 'translate(0px, ' + wScroll / 8 + '%)'
       })
     })
 
     // Scrolling to service section
 
     $('.down-arrow').click(function(){
-      let scrollTarget = $("#home-body").offset().top;
-      $('html, body').animate({scrollTop: scrollTarget}, 800, function(){
-        $('html, body').clearQueue();
-      })
+      scrollDown('#home-body', 800);
     });
 
     initHomeVideo(results, $section);
 
   });
 }
+
+function scrollDown(target, timing) {
+    let scrollTarget = $(target).offset().top;
+    $('html, body').animate({scrollTop: scrollTarget}, timing, function(){
+      $('html, body').clearQueue();
+    })
+  }
 
 function initHomeVideo (results, $section, videoId) {
   var videoURL = results[0].data['homepage.video-link'].value[0].text;

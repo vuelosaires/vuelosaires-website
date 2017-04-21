@@ -27140,33 +27140,75 @@ module.exports=template;function pug_attr(t,e,n,f){return e!==!1&&null!=e&&(e||"
 function pug_escape(e){var a=""+e,t=pug_match_html.exec(a);if(!t)return e;var r,c,n,s="";for(r=t.index,c=0;r<a.length;r++){switch(a.charCodeAt(r)){case 34:n="&quot;";break;case 38:n="&amp;";break;case 60:n="&lt;";break;case 62:n="&gt;";break;default:continue}c!==r&&(s+=a.substring(c,r)),c=r+1,s+=n}return c!==r?s+a.substring(c,r):s}
 var pug_match_html=/["&<>]/;
 function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
-;var locals_for_with = (locals || {});(function (carouselImages) {var pug_indent = [];
+;var locals_for_with = (locals || {});(function (carouselImages, description, title) {var pug_indent = [];
 
 pug_html = pug_html + "\n\u003Cdiv class=\"service-section\" id=\"publicidad-service\"\u003E";
 
-pug_html = pug_html + "\n  \u003Cdiv class=\"section-inner container\"\u003E";
+pug_html = pug_html + "\n  \u003Cdiv class=\"overlay-shadow\"\u003E";
 
-pug_html = pug_html + "\n    \u003Cdiv class=\"row\"\u003E";
+pug_html = pug_html + "\u003Cimg src=\"src\u002Foverlay-video.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
 
-pug_html = pug_html + "\n      \u003Cdiv class=\"twelve columns\"\u003E";
+pug_html = pug_html + "\n  \u003Cdiv class=\"video-background hide-opacity\"\u003E";
 
-pug_html = pug_html + "\n        \u003Cdiv class=\"section-title\"\u003E";
+pug_html = pug_html + "\n    \u003Cdiv class=\"video-foreground\"\u003E";
 
-pug_html = pug_html + "\n          \u003Ch1\u003E";
+pug_html = pug_html + " ";
 
-pug_html = pug_html + "Publicidad\u003C\u002Fh1\u003E\n        \u003C\u002Fdiv\u003E";
+pug_html = pug_html + "\n      \u003Cdiv id=\"advertising-video\"\u003E\u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E";
 
-pug_html = pug_html + "\n        \u003Cdiv class=\"section-description\"\u003E";
+pug_html = pug_html + "\n  \u003Cdiv class=\"advertising-overlay-content\"\u003E";
 
-pug_html = pug_html + "\n          \u003Cp\u003E";
-;pug_debug_line = 10;
-pug_html = pug_html + "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\u003C\u002Fp\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E";
+pug_html = pug_html + "\n    \u003Cdiv class=\"container\"\u003E";
 
-pug_html = pug_html + "\n    \u003Cdiv class=\"row\"\u003E";
+pug_html = pug_html + "\n      \u003Cdiv class=\"row\"\u003E";
 
-pug_html = pug_html + "\n      \u003Cdiv class=\"twelve columns\"\u003E";
+pug_html = pug_html + "\n        \u003Cdiv class=\"twelve columns\"\u003E";
 
-pug_html = pug_html + "\n        \u003Cdiv class=\"section-carousel\"\u003E";
+pug_html = pug_html + "\n          \u003Cdiv\u003E";
+
+pug_html = pug_html + "Desde el aire tu proyecto\u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n          \u003Cdiv\u003E";
+
+pug_html = pug_html + "se ve mejor\u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n  \u003Cdiv class=\"go-down\"\u003E";
+
+pug_html = pug_html + "\n    \u003Cdiv class=\"container\"\u003E";
+
+pug_html = pug_html + "\n      \u003Cdiv class=\"row\"\u003E";
+
+pug_html = pug_html + "\n        \u003Cdiv class=\"five columns\"\u003E\u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n        \u003Cdiv class=\"two columns\"\u003E";
+
+pug_html = pug_html + "\n          \u003Cdiv class=\"down-arrow\"\u003E";
+
+pug_html = pug_html + "\u003Cimg src=\"src\u002Farrow-down.png\"\u002F\u003E\u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n        \u003Cdiv class=\"five columns\"\u003E\u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n  \u003Cdiv id=\"advertising-body\"\u003E";
+
+pug_html = pug_html + "\n    \u003Cdiv class=\"section-inner container\"\u003E";
+
+pug_html = pug_html + "\n      \u003Cdiv class=\"row\"\u003E";
+
+pug_html = pug_html + "\n        \u003Cdiv class=\"twelve columns\"\u003E";
+
+pug_html = pug_html + "\n          \u003Cdiv class=\"section-title\"\u003E";
+
+pug_html = pug_html + (pug_escape(null == (pug_interp = title) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n          \u003Cdiv class=\"section-description\"\u003E";
+
+pug_html = pug_html + (pug_escape(null == (pug_interp = description) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E";
+
+pug_html = pug_html + "\n      \u003Cdiv class=\"row\"\u003E";
+
+pug_html = pug_html + "\n        \u003Cdiv class=\"twelve columns\"\u003E";
+
+pug_html = pug_html + "\n          \u003Cdiv class=\"section-carousel\"\u003E";
 
 // iterate carouselImages
 ;(function(){
@@ -27175,7 +27217,7 @@ pug_html = pug_html + "\n        \u003Cdiv class=\"section-carousel\"\u003E";
       for (var pug_index0 = 0, $$l = $$obj.length; pug_index0 < $$l; pug_index0++) {
         var val = $$obj[pug_index0];
 
-pug_html = pug_html + "\n          \u003Cdiv class=\"carousel-image\"\u003E";
+pug_html = pug_html + "\n            \u003Cdiv class=\"carousel-image\"\u003E";
 
 pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, true, false)) + "\u002F\u003E\u003C\u002Fdiv\u003E";
       }
@@ -27185,14 +27227,14 @@ pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, 
       $$l++;
       var val = $$obj[pug_index0];
 
-pug_html = pug_html + "\n          \u003Cdiv class=\"carousel-image\"\u003E";
+pug_html = pug_html + "\n            \u003Cdiv class=\"carousel-image\"\u003E";
 
 pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, true, false)) + "\u002F\u003E\u003C\u002Fdiv\u003E";
     }
   }
 }).call(this);
 
-pug_html = pug_html + "\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";}.call(this,"carouselImages" in locals_for_with?locals_for_with.carouselImages:typeof carouselImages!=="undefined"?carouselImages:undefined));return pug_html;}
+pug_html = pug_html + "\n          \u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";}.call(this,"carouselImages" in locals_for_with?locals_for_with.carouselImages:typeof carouselImages!=="undefined"?carouselImages:undefined,"description" in locals_for_with?locals_for_with.description:typeof description!=="undefined"?description:undefined,"title" in locals_for_with?locals_for_with.title:typeof title!=="undefined"?title:undefined));return pug_html;}
 
 },{"fs":1,"pug-runtime":55}],68:[function(require,module,exports){
 'use strict';
@@ -27208,12 +27250,11 @@ function advertising(context, next) {
     tags: 'publicidad'
   }, function (results, err) {
     if (err) return new Error('Bad Request');
-
-    results = results[0];
+    console.log(results[0].data['service-page.video-link'].value[0].text);
     var templateOptions = {
-      carouselImages: results.data['service-page.carousel-images'].value,
-      description: results.data['service-page.service-description'].value[0].text,
-      title: results.data['service-page.service-title'].value[0].text
+      carouselImages: results[0].data['service-page.carousel-images'].value,
+      description: results[0].data['service-page.service-description'].value[0].text,
+      title: results[0].data['service-page.service-title'].value[0].text
     };
 
     render(context, template, templateOptions, function () {
@@ -27227,7 +27268,109 @@ function advertising(context, next) {
         slidesToShow: 1
       });
     });
+
+    // Overlay arrow scroll animation
+
+    $(window).scroll(function () {
+      var wScroll = $(this).scrollTop();
+      // console.log(wScroll)
+
+      $('.down-arrow').css({
+        'transform': 'translate(0px, ' + wScroll / 2 + '%)',
+        'filter': 'blur(' + wScroll / 50 + 'px)'
+      });
+
+      $('.advertising-overlay-content').css({
+        'transform': 'translate(0px, ' + wScroll / 8 + '%)'
+      });
+    });
+
+    // Scrolling to service section
+
+    $('.down-arrow').click(function () {
+      scrollDown('.section-inner', 800);
+    });
+
+    var $section = $('#publicidad-service');
+
+    initAdvertisingVideo(results, $section);
   });
+}
+
+function scrollDown(target, timing) {
+  var scrollTarget = $(target).offset().top;
+  $('html, body').animate({ scrollTop: scrollTarget }, timing, function () {
+    $('html, body').clearQueue();
+  });
+}
+
+function initAdvertisingVideo(results, $section, videoId) {
+  var videoURL = results[0].data['service-page.video-link'].value[0].text;
+
+  if (!videoURL || !(typeof videoURL == 'string')) {
+    return;
+  }
+
+  // BEWARE: Obscure string manipulation ahead
+  var videoId = videoURL.slice(videoURL.indexOf('v=') + 2);
+
+  createHomeVideo($section, videoId);
+}
+
+function createHomeVideo($section, videoId) {
+  var $videoCont = $section.find('.video-background');
+
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  var player;
+  window.onYouTubeIframeAPIReady = function () {
+    player = new YT.Player('advertising-video', {
+      videoId: videoId,
+      height: '100%',
+      width: '100%',
+      fitToBackground: true,
+      playerVars: {
+        'autoplay': 1,
+        'rel': 0,
+        'showinfo': 0,
+        'showsearch': 0,
+        'controls': 0,
+        'loop': 1,
+        'enablejsapi': 1,
+        'playlist': videoId,
+        'modestbranding': 1
+      },
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  };
+
+  function onPlayerReady(event) {
+    event.target.setPlaybackQuality('default');
+    event.target.mute();
+  }
+
+  function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.PLAYING) {
+      showVideo();
+    }
+    if (event.data == YT.PlayerState.ENDED) {
+      hideVideo();
+    }
+  }
+
+  function showVideo() {
+    $videoCont.removeClass('hide-opacity');
+  }
+
+  function hideVideo() {
+    $videoCont.addClass('hide-opacity');
+  }
 }
 
 module.exports = advertising;
@@ -27404,7 +27547,7 @@ pug_html = pug_html + "\n                \u003Cp class=\"service-description\"\u
 
 pug_html = pug_html + (pug_escape(null == (pug_interp = service_modules.advertising.description) ? "" : pug_interp)) + "\u003C\u002Fp\u003E";
 
-pug_html = pug_html + "\u003Ca class=\"services-more-link\" href=\"\u002F#\u002Freal_state\"\u003E";
+pug_html = pug_html + "\u003Ca class=\"services-more-link\" href=\"\u002F#\u002Fpublicidad\"\u003E";
 
 pug_html = pug_html + "Ver más\u003C\u002Fa\u003E\n              \u003C\u002Fdiv\u003E";
 
@@ -27436,12 +27579,14 @@ pug_html = pug_html + "\n                \u003Cp class=\"service-description\"\u
 
 pug_html = pug_html + (pug_escape(null == (pug_interp = service_modules.real_state.description) ? "" : pug_interp)) + "\u003C\u002Fp\u003E";
 
-pug_html = pug_html + "\u003Ca class=\"services-more-link\" href=\"\u002F#\u002Fpublicidad\"\u003E";
+pug_html = pug_html + "\u003Ca class=\"services-more-link\" href=\"\u002F#\u002Freal_state\"\u003E";
 
 pug_html = pug_html + "Ver más\u003C\u002Fa\u003E\n              \u003C\u002Fdiv\u003E\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";}.call(this,"service_modules" in locals_for_with?locals_for_with.service_modules:typeof service_modules!=="undefined"?service_modules:undefined));return pug_html;}
 
 },{"fs":1,"pug-runtime":55}],73:[function(require,module,exports){
 'use strict';
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var callPrismic = require('../../utils/prismic-model');
 var render = require('../../utils/render');
@@ -27473,31 +27618,36 @@ function home(context, next) {
 
     var $section = $('#home');
 
-    // Overlay arrrow scroll animation
+    // Overlay arrow scroll animation
 
     $(window).scroll(function () {
       var wScroll = $(this).scrollTop();
       // console.log(wScroll)
 
-      $('.down-arrow').css({
-        'transform': 'translate(0px, ' + wScroll / 2 + '%)'
-      });
+      $('.down-arrow').css(_defineProperty({
+        'transform': 'translate(0px, ' + wScroll / 2 + '%)',
+        'filter': 'blur(' + wScroll / 50 + 'px)'
+      }, 'transform', 'scale(' + 1 / wScroll + ')'));
 
       $('.home-overlay-content').css({
-        'transform': 'translate(0px, ' + wScroll / 10 + '%)'
+        'transform': 'translate(0px, ' + wScroll / 8 + '%)'
       });
     });
 
     // Scrolling to service section
 
     $('.down-arrow').click(function () {
-      var scrollTarget = $("#home-body").offset().top;
-      $('html, body').animate({ scrollTop: scrollTarget }, 800, function () {
-        $('html, body').clearQueue();
-      });
+      scrollDown('#home-body', 800);
     });
 
     initHomeVideo(results, $section);
+  });
+}
+
+function scrollDown(target, timing) {
+  var scrollTarget = $(target).offset().top;
+  $('html, body').animate({ scrollTop: scrollTarget }, timing, function () {
+    $('html, body').clearQueue();
   });
 }
 
@@ -27580,15 +27730,27 @@ var render = require('../../utils/render');
 var template = require('./policy.pug');
 
 function policy(context, next) {
-  render(context, template);
+  callPrismic({ documentType: 'policy' }, function (results, err) {
+    console.log(results);
+    if (err || !results.length || !results) return new Error('Bad request.');
+
+    var templateOpts = {
+      title: results[0].data['policy.policy-title'].value[0].text,
+      description: results[0].data['policy.policy-description'].value[0].text
+    };
+
+    render(context, template, templateOpts);
+  });
 }
 
 module.exports = policy;
 
 },{"../../utils/prismic-model":61,"../../utils/render":62,"./policy.pug":75}],75:[function(require,module,exports){
 var pug = require('pug-runtime');
-module.exports=template;function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
-var pug_indent = [];
+module.exports=template;function pug_escape(e){var a=""+e,t=pug_match_html.exec(a);if(!t)return e;var r,c,n,s="";for(r=t.index,c=0;r<a.length;r++){switch(a.charCodeAt(r)){case 34:n="&quot;";break;case 38:n="&amp;";break;case 60:n="&lt;";break;case 62:n="&gt;";break;default:continue}c!==r&&(s+=a.substring(c,r)),c=r+1,s+=n}return c!==r?s+a.substring(c,r):s}
+var pug_match_html=/["&<>]/;
+function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
+;var locals_for_with = (locals || {});(function (description, title) {var pug_indent = [];
 
 pug_html = pug_html + "\n\u003Cdiv id=\"policy\"\u003E";
 
@@ -27600,11 +27762,11 @@ pug_html = pug_html + "\n      \u003Cdiv class=\"twelve columns\"\u003E";
 
 pug_html = pug_html + "\n        \u003Ch1 class=\"first-title\"\u003E";
 
-pug_html = pug_html + "Nuestras Políticas\u003C\u002Fh1\u003E";
+pug_html = pug_html + (pug_escape(null == (pug_interp = title) ? "" : pug_interp)) + "\u003C\u002Fh1\u003E";
 
 pug_html = pug_html + "\n        \u003Cp\u003E";
 
-pug_html = pug_html + "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\u003C\u002Fp\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";return pug_html;}
+pug_html = pug_html + (pug_escape(null == (pug_interp = description) ? "" : pug_interp)) + "\u003C\u002Fp\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";}.call(this,"description" in locals_for_with?locals_for_with.description:typeof description!=="undefined"?description:undefined,"title" in locals_for_with?locals_for_with.title:typeof title!=="undefined"?title:undefined));return pug_html;}
 
 },{"fs":1,"pug-runtime":55}],76:[function(require,module,exports){
 'use strict';
