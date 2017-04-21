@@ -36,8 +36,7 @@ function home (context, next) {
 
       $('.down-arrow').css({
         'transform' : 'translate(0px, ' + wScroll / 2 + '%)',
-        'filter' : 'blur(' + wScroll / 50 + 'px)',
-        'transform' : 'scale(' + 1 / wScroll +')'
+        'filter' : 'blur(' + wScroll / 50 + 'px)'
       })
 
       $('.home-overlay-content').css({

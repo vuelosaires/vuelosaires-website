@@ -27586,8 +27586,6 @@ pug_html = pug_html + "Ver más\u003C\u002Fa\u003E\n              \u003C\u002Fdi
 },{"fs":1,"pug-runtime":55}],73:[function(require,module,exports){
 'use strict';
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 var callPrismic = require('../../utils/prismic-model');
 var render = require('../../utils/render');
 var template = require('./home.pug');
@@ -27624,10 +27622,10 @@ function home(context, next) {
       var wScroll = $(this).scrollTop();
       // console.log(wScroll)
 
-      $('.down-arrow').css(_defineProperty({
+      $('.down-arrow').css({
         'transform': 'translate(0px, ' + wScroll / 2 + '%)',
         'filter': 'blur(' + wScroll / 50 + 'px)'
-      }, 'transform', 'scale(' + 1 / wScroll + ')'));
+      });
 
       $('.home-overlay-content').css({
         'transform': 'translate(0px, ' + wScroll / 8 + '%)'
