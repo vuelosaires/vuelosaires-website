@@ -42,7 +42,16 @@ function home (context, next) {
       $('.home-overlay-content').css({
         'transform' : 'translate(0px, ' + wScroll / 8 + '%)'
       })
+
+      if (wScroll > 500) {
+        $('#main-nav').css({'background-color' : 'rgba(34, 34, 40, 1)'})
+      } else {
+        $('#main-nav').css({'background-color' : 'rgba(34, 34, 40, .9)'})
+      }
+
+      console.log(wScroll);
     })
+
 
     // Scrolling to service section
 
@@ -51,6 +60,8 @@ function home (context, next) {
     });
 
     initHomeVideo(results, $section);
+
+    $('.down-arrow').addClass('down-animate');
 
   });
 }

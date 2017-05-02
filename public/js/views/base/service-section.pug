@@ -1,16 +1,16 @@
 //- This can't have an ID of #publicidad cause the adblocker blocks it
-#publicidad-service.service-section
+.service-section
   .overlay-shadow
     img(src="src/overlay-video.png")
   .video-background.hide-opacity
     .video-foreground 
-      #advertising-video
-  .advertising-overlay-content
+      #service-video
+  .service-overlay-content
     .container
       .row
         .twelve.columns
-          div Desde el aire tu proyecto
-          div se ve mejor
+          div= topTitle
+          div= bottomTitle
   .go-down
     .container
       .row
@@ -20,7 +20,7 @@
             img(src="src/arrow-down.png")
         .five.columns
 
-  #advertising-body
+  #service-body
     .section-inner.container
       .row
         .twelve.columns

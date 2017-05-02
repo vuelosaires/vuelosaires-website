@@ -1,7 +1,9 @@
 const callPrismic = require('../../utils/prismic-model');
 const render = require('../../utils/render');
-const template = require('./advertising.pug');
+const template = require('../base/service-section.pug');
 const slick = require('slick-carousel');
+const scrollDown = require('../../utils/scroll-down');
+const _ = require('lodash');
 
 function advertising (context, next) {
   callPrismic({
@@ -9,15 +11,17 @@ function advertising (context, next) {
     tags: 'publicidad'
   }, (results, err) => {
     if (err) return new Error('Bad Request');
-    console.log(results[0].data['service-page.video-link'].value[0].text)
+
     const templateOptions = {
       carouselImages: results[0].data['service-page.carousel-images'].value,
       description: results[0].data['service-page.service-description'].value[0].text,
+      topTitle: results[0].data['service-page.top-title'].value[0].text,
+      bottomTitle: results[0].data['service-page.bottom-title'].value[0].text,
       title: results[0].data['service-page.service-title'].value[0].text
     }
 
     render(context, template, templateOptions, () => {
-      const $section = $('#publicidad-service');
+      const $section = $('.service-section');
 
       $section.find('.section-carousel').slick({
         dots: true,
@@ -26,68 +30,62 @@ function advertising (context, next) {
         autoplay: true,
         slidesToShow: 1
       });
+
+      // Overlay arrow scroll animation
+
+      let onScroll = function(){
+        var wScroll = $(this).scrollTop();
+
+        $('.down-arrow').css({
+          'transform' : 'translate(0px, ' + wScroll / 2 + '%)'
+        })
+
+        $('.service-overlay-content').css({
+          'transform' : 'translate(0px, ' + wScroll / 8 + '%)'
+        })
+
+        if (wScroll > 500) {
+          $('#main-nav').css({'background-color' : 'rgba(34, 34, 40, 1)'})
+        } else {
+          $('#main-nav').css({'background-color' : 'rgba(34, 34, 40, .9)'})
+        }
+
+      }
+
+      $(window).scroll(onScroll);
+
+      // Scrolling to service section
+
+      $('.down-arrow').click(function(){
+        scrollDown('.section-inner', 800);
+      });
+
+      initAdvertisingVideo(results, $section);
     });
-
-    // Overlay arrow scroll animation
-
-    $(window).scroll(function(){
-      var wScroll = $(this).scrollTop();
-      // console.log(wScroll)
-
-      $('.down-arrow').css({
-        'transform' : 'translate(0px, ' + wScroll / 2 + '%)',
-        'filter' : 'blur(' + wScroll / 50 + 'px)'
-      })
-
-      $('.advertising-overlay-content').css({
-        'transform' : 'translate(0px, ' + wScroll / 8 + '%)'
-      })
-    })
-
-    // Scrolling to service section
-
-    $('.down-arrow').click(function(){
-      scrollDown('.section-inner', 800);
-    });
-
-    const $section = $('#publicidad-service');
-
-    initAdvertisingVideo(results, $section);
 
   });
 }
 
-function scrollDown(target, timing) {
-    let scrollTarget = $(target).offset().top;
-    $('html, body').animate({scrollTop: scrollTarget}, timing, function(){
-      $('html, body').clearQueue();
-    })
+function initAdvertisingVideo (results, $section, videoId) {
+  var videoURL = results[0].data['service-page.video-link'].value[0].text;
+
+  if (!videoURL || !(typeof videoURL == 'string') ) {
+    return;
   }
 
-  function initAdvertisingVideo (results, $section, videoId) {
-    var videoURL = results[0].data['service-page.video-link'].value[0].text;
+  // BEWARE: Obscure string manipulation ahead
+  var videoId = videoURL.slice(videoURL.indexOf('v=')+2);
 
-    if (!videoURL || !(typeof videoURL == 'string') ) {
-      return;
-    }
+  initYoutubeVideo($section, videoId);
+}
 
-    // BEWARE: Obscure string manipulation ahead
-    var videoId = videoURL.slice(videoURL.indexOf('v=')+2);
-
-    createHomeVideo($section, videoId);
-  }
-
-function createHomeVideo ($section, videoId) {
+function initYoutubeVideo ($section, videoId) {
   const $videoCont = $section.find('.video-background');
 
-  var tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  var firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
   var player;
-  window.onYouTubeIframeAPIReady = function() {
-    player = new YT.Player('advertising-video', {
+
+  function createVideo () {
+    return new YT.Player('service-video', {
       videoId: videoId,
       height:'100%',
       width: '100%',
@@ -113,13 +111,14 @@ function createHomeVideo ($section, videoId) {
   function onPlayerReady(event) {
     event.target.setPlaybackQuality('default');
     event.target.mute();
+    // TO-DO: Show button
   }
 
   function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.PLAYING) {
+    if (event.data === YT.PlayerState.PLAYING) {
       showVideo();
     }
-    if (event.data == YT.PlayerState.ENDED) {
+    if (event.data === YT.PlayerState.ENDED) {
       hideVideo();
     }
   }
@@ -130,6 +129,21 @@ function createHomeVideo ($section, videoId) {
 
   function hideVideo() {
     $videoCont.addClass('hide-opacity');
+  }
+
+  if (window.youtubeAPIReady) {
+    player = createVideo();
+    return;
+  }
+
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  window.onYouTubeIframeAPIReady = function() {
+    player = createVideo();
+    window.youtubeAPIReady = true;
   }
 }
 

@@ -39,6 +39,9 @@
       z-index 0
       opacity 0
       cursor pointer
+      display none
+    .down-animate
+      display inline-block
       animation down-arrow 1s
       animation-timing-function cubic-bezier(0,.66,.2,1.01)
       animation-delay 3s
@@ -51,6 +54,11 @@
         height: 100px
         transform scale(0.8)
         position: absolute
+        transition .1s transform ease-in-out
+        &:hover
+          transform scale(.85)
+        &:active
+          transform scale(.75)
   #home-body
     position relative
     top 100vh

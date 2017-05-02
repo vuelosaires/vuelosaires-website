@@ -90,4 +90,11 @@ $(document).ready(() => {
 
   page();
 
+  $('.mobile-menu').click(function(){
+    $('li').css({
+      display: 'block',
+      width: '100%'
+    })
+  })
+
 });
