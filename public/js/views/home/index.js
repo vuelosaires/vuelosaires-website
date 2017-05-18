@@ -4,7 +4,7 @@ const template = require('./home.pug');
 
 function home (context, next) {
   callPrismic({ documentType: 'homepage' }, (results, err) => {
-    console.log(results);
+    // console.log(results);
     if (err || !results.length || !results) return new Error('Bad request.');
 
     var templateOpts = {
@@ -36,7 +36,6 @@ function home (context, next) {
 
       $('.down-arrow').css({
         'transform' : 'translate(0px, ' + wScroll / 2 + '%)',
-        'filter' : 'blur(' + wScroll / 50 + 'px)'
       })
 
       $('.home-overlay-content').css({
@@ -48,10 +47,7 @@ function home (context, next) {
       } else {
         $('#main-nav').css({'background-color' : 'rgba(34, 34, 40, .9)'})
       }
-
-      console.log(wScroll);
-    })
-
+    });
 
     // Scrolling to service section
 
@@ -60,8 +56,6 @@ function home (context, next) {
     });
 
     initHomeVideo(results, $section);
-
-    $('.down-arrow').addClass('down-animate');
 
   });
 }
@@ -124,6 +118,7 @@ function createHomeVideo ($section, videoId) {
   function onPlayerReady(event) {
     event.target.setPlaybackQuality('default');
     event.target.mute();
+    $('.down-arrow').addClass('down-animate');
   }
 
   function onPlayerStateChange(event) {

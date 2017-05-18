@@ -1,7 +1,27 @@
 .service-section
   width 100%
-  height 100%
   padding-top 0px
+  background black
+  .top-carousel
+    height 100vh
+    width 100vw
+    .slick-list
+      height 100vh
+      .slick-track
+        height 100vh
+        img
+          height 100vh
+          max-height none
+          width 100vh
+    .slick-dots
+      position relative
+      bottom 50px
+      li
+        height 20px
+        width 20px
+        button
+        &:before
+          font-size 40px
   .service-overlay-content
     font-size 4vw
     position absolute
@@ -18,40 +38,14 @@
       left 10px
       text-align left
     }
-  .overlay-shadow
-    img
-      width 100%
-      height 100vh
-      position absolute
-  .go-down
-    .down-arrow
-      width 100px
-      height 100px
-      position absolute
-      left calc(50% - 50px)
-      z-index 0
-      opacity 0
-      cursor pointer
-      animation down-arrow 1s
-      animation-timing-function cubic-bezier(0,.66,.2,1.01)
-      animation-delay 3s
-      animation-fill-mode forwards
-      @keyframes down-arrow
-        0% {opacity: 0; top: 110vh}
-        100% {opacity: 1; top: 80vh}
-      img
-        width: 100px
-        height: 100px
-        transform scale(0.8)
-        position: absolute
   #service-body
+    padding 20px 10vw
     position relative
-    background-color white
-    top 100vh
+    background-color black
     height calc(100vh + 300px)
     .section-title
+      color white
       padding-top 65px
-      padding-bottom 30px
       font-size 3em
       text-align center
       font-weight lighter
@@ -62,25 +56,5 @@
       color gray
       min-height 50px
     .section-carousel
-      margin-top 50px
-  #adv-video-carousel
-    margin-bottom 200px
-    width 100%
-    height 100%
-    .adv-video-carousel-overlay // display: none until solving whole page covering issue
-      background rgba(0,0,0,0.3)
-      position fixed
-      top 0
-      left 0
-      right 0
-      bottom 0
-      display none
-    .adv-video-carousel-overlay-content
-      font-size 60px
-      position absolute
-      top 400px
-      left 30px
-      line-height 0.8
-      color white
-      font-weight 300
-      width 95%
+      background-color black
+      

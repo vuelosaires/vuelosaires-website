@@ -44059,7 +44059,7 @@ $(document).ready(function () {
   });
 });
 
-},{"./utils/init-script":60,"./utils/parse-context":61,"./utils/render":63,"./utils/set-title":65,"./views/about/index":68,"./views/advertising/index":69,"./views/base/notfound.pug":70,"./views/contact/index":73,"./views/home/index":75,"./views/policy/index":76,"./views/real_state/index":78,"./views/turism/index":79,"pace-progress":40,"page":41,"wowjs":58}],60:[function(require,module,exports){
+},{"./utils/init-script":60,"./utils/parse-context":61,"./utils/render":63,"./utils/set-title":64,"./views/about/index":67,"./views/advertising/index":68,"./views/base/notfound.pug":69,"./views/contact/index":72,"./views/home/index":74,"./views/policy/index":75,"./views/real_state/index":77,"./views/turism/index":78,"pace-progress":40,"page":41,"wowjs":58}],60:[function(require,module,exports){
 'use strict';
 
 function init() {
@@ -44151,18 +44151,6 @@ module.exports = render;
 },{"./parse-context":61}],64:[function(require,module,exports){
 'use strict';
 
-function scrollDown(target, timing) {
-  var scrollTarget = $(target).offset().top;
-  $('html, body').animate({ scrollTop: scrollTarget }, timing, function () {
-    $('html, body').clearQueue();
-  });
-}
-
-module.exports = scrollDown;
-
-},{}],65:[function(require,module,exports){
-'use strict';
-
 var mappings = require('./title-mappings');
 var parseContext = require('./parse-context');
 
@@ -44182,7 +44170,7 @@ function setCurrentTitle(context) {
 
 module.exports = setCurrentTitle;
 
-},{"./parse-context":61,"./title-mappings":66}],66:[function(require,module,exports){
+},{"./parse-context":61,"./title-mappings":65}],65:[function(require,module,exports){
 module.exports={
   "home": "Home",
   "about": "Sobre Nosotros",
@@ -44194,7 +44182,7 @@ module.exports={
   "contact": "Contacto"
 }
 
-},{}],67:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 var pug = require('pug-runtime');
 module.exports=template;function pug_escape(e){var a=""+e,t=pug_match_html.exec(a);if(!t)return e;var r,c,n,s="";for(r=t.index,c=0;r<a.length;r++){switch(a.charCodeAt(r)){case 34:n="&quot;";break;case 38:n="&amp;";break;case 60:n="&lt;";break;case 62:n="&gt;";break;default:continue}c!==r&&(s+=a.substring(c,r)),c=r+1,s+=n}return c!==r?s+a.substring(c,r):s}
 var pug_match_html=/["&<>]/;
@@ -44217,7 +44205,7 @@ pug_html = pug_html + "\n        \u003Cp\u003E";
 
 pug_html = pug_html + (pug_escape(null == (pug_interp = description) ? "" : pug_interp)) + "\u003C\u002Fp\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";}.call(this,"description" in locals_for_with?locals_for_with.description:typeof description!=="undefined"?description:undefined,"title" in locals_for_with?locals_for_with.title:typeof title!=="undefined"?title:undefined));return pug_html;}
 
-},{"fs":1,"pug-runtime":56}],68:[function(require,module,exports){
+},{"fs":1,"pug-runtime":56}],67:[function(require,module,exports){
 'use strict';
 
 var callPrismic = require('../../utils/prismic-model');
@@ -44241,14 +44229,14 @@ function about(context, next) {
 
 module.exports = about;
 
-},{"../../utils/prismic-model":62,"../../utils/render":63,"./about.pug":67,"slick-carousel":57}],69:[function(require,module,exports){
+},{"../../utils/prismic-model":62,"../../utils/render":63,"./about.pug":66,"slick-carousel":57}],68:[function(require,module,exports){
 'use strict';
 
 var callPrismic = require('../../utils/prismic-model');
 var render = require('../../utils/render');
 var template = require('../base/service-section.pug');
 var slick = require('slick-carousel');
-var scrollDown = require('../../utils/scroll-down');
+// const scrollDown = require('../../utils/scroll-down');
 var _ = require('lodash');
 
 function advertising(context, next) {
@@ -44259,6 +44247,7 @@ function advertising(context, next) {
     if (err) return new Error('Bad Request');
 
     var templateOptions = {
+      topCarouselImages: results[0].data['service-page.top-carousel-images'].value,
       carouselImages: results[0].data['service-page.carousel-images'].value,
       description: results[0].data['service-page.service-description'].value[0].text,
       topTitle: results[0].data['service-page.top-title'].value[0].text,
@@ -44267,6 +44256,7 @@ function advertising(context, next) {
     };
 
     render(context, template, templateOptions, function () {
+
       var $section = $('.service-section');
 
       $section.find('.section-carousel').slick({
@@ -44274,17 +44264,26 @@ function advertising(context, next) {
         infinite: true,
         speed: 500,
         autoplay: true,
-        slidesToShow: 1
+        slidesToShow: 1,
+        fade: true,
+        cssEase: 'ease-in-out'
+      });
+
+      $section.find('.top-carousel').slick({
+        dots: true,
+        autoplay: true,
+        speed: 650,
+        slidesToShow: 1,
+        infinite: true,
+        arrows: false,
+        fade: true,
+        cssEase: 'ease-in-out'
       });
 
       // Overlay arrow scroll animation
 
       var onScroll = function onScroll() {
         var wScroll = $(this).scrollTop();
-
-        $('.down-arrow').css({
-          'transform': 'translate(0px, ' + wScroll / 2 + '%)'
-        });
 
         $('.service-overlay-content').css({
           'transform': 'translate(0px, ' + wScroll / 8 + '%)'
@@ -44300,100 +44299,13 @@ function advertising(context, next) {
       $(window).scroll(onScroll);
 
       // Scrolling to service section
-
-      $('.down-arrow').click(function () {
-        scrollDown('.section-inner', 800);
-      });
-
-      initAdvertisingVideo(results, $section);
     });
   });
 }
 
-function initAdvertisingVideo(results, $section, videoId) {
-  var videoURL = results[0].data['service-page.video-link'].value[0].text;
-
-  if (!videoURL || !(typeof videoURL == 'string')) {
-    return;
-  }
-
-  // BEWARE: Obscure string manipulation ahead
-  var videoId = videoURL.slice(videoURL.indexOf('v=') + 2);
-
-  initYoutubeVideo($section, videoId);
-}
-
-function initYoutubeVideo($section, videoId) {
-  var $videoCont = $section.find('.video-background');
-
-  var player;
-
-  function createVideo() {
-    return new YT.Player('service-video', {
-      videoId: videoId,
-      height: '100%',
-      width: '100%',
-      fitToBackground: true,
-      playerVars: {
-        'autoplay': 1,
-        'rel': 0,
-        'showinfo': 0,
-        'showsearch': 0,
-        'controls': 0,
-        'loop': 1,
-        'enablejsapi': 1,
-        'playlist': videoId,
-        'modestbranding': 1
-      },
-      events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
-      }
-    });
-  }
-
-  function onPlayerReady(event) {
-    event.target.setPlaybackQuality('default');
-    event.target.mute();
-    // TO-DO: Show button
-  }
-
-  function onPlayerStateChange(event) {
-    if (event.data === YT.PlayerState.PLAYING) {
-      showVideo();
-    }
-    if (event.data === YT.PlayerState.ENDED) {
-      hideVideo();
-    }
-  }
-
-  function showVideo() {
-    $videoCont.removeClass('hide-opacity');
-  }
-
-  function hideVideo() {
-    $videoCont.addClass('hide-opacity');
-  }
-
-  if (window.youtubeAPIReady) {
-    player = createVideo();
-    return;
-  }
-
-  var tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  var firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-  window.onYouTubeIframeAPIReady = function () {
-    player = createVideo();
-    window.youtubeAPIReady = true;
-  };
-}
-
 module.exports = advertising;
 
-},{"../../utils/prismic-model":62,"../../utils/render":63,"../../utils/scroll-down":64,"../base/service-section.pug":71,"lodash":39,"slick-carousel":57}],70:[function(require,module,exports){
+},{"../../utils/prismic-model":62,"../../utils/render":63,"../base/service-section.pug":70,"lodash":39,"slick-carousel":57}],69:[function(require,module,exports){
 var pug = require('pug-runtime');
 module.exports=template;function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
 var pug_indent = [];
@@ -44402,7 +44314,7 @@ pug_html = pug_html + "\n\u003Cdiv class=\"not-found-page\"\u003E";
 
 pug_html = pug_html + "Not found\u003C\u002Fdiv\u003E";return pug_html;}
 
-},{"fs":1,"pug-runtime":56}],71:[function(require,module,exports){
+},{"fs":1,"pug-runtime":56}],70:[function(require,module,exports){
 var pug = require('pug-runtime');
 module.exports=template;function pug_attr(t,e,n,f){return e!==!1&&null!=e&&(e||"class"!==t&&"style"!==t)?e===!0?" "+(f?t:t+'="'+t+'"'):("function"==typeof e.toJSON&&(e=e.toJSON()),"string"==typeof e||(e=JSON.stringify(e),n||e.indexOf('"')===-1)?(n&&(e=pug_escape(e))," "+t+'="'+e+'"'):" "+t+"='"+e.replace(/'/g,"&#39;")+"'"):""}
 function pug_escape(e){var a=""+e,t=pug_match_html.exec(a);if(!t)return e;var r,c,n,s="";for(r=t.index,c=0;r<a.length;r++){switch(a.charCodeAt(r)){case 34:n="&quot;";break;case 38:n="&amp;";break;case 60:n="&lt;";break;case 62:n="&gt;";break;default:continue}c!==r&&(s+=a.substring(c,r)),c=r+1,s+=n}return c!==r?s+a.substring(c,r):s}
@@ -44412,17 +44324,29 @@ function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"=
 
 pug_html = pug_html + "\n\u003Cdiv class=\"service-section\"\u003E";
 
-pug_html = pug_html + "\n  \u003Cdiv class=\"overlay-shadow\"\u003E";
+pug_html = pug_html + "\n  \u003Cdiv class=\"top-carousel\"\u003E";
 
-pug_html = pug_html + "\u003Cimg src=\"src\u002Foverlay-video.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+// iterate carouselImages
+;(function(){
+  var $$obj = carouselImages;
+  if ('number' == typeof $$obj.length) {
+      for (var pug_index0 = 0, $$l = $$obj.length; pug_index0 < $$l; pug_index0++) {
+        var val = $$obj[pug_index0];
 
-pug_html = pug_html + "\n  \u003Cdiv class=\"video-background hide-opacity\"\u003E";
+pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, true, false)) + "\u002F\u003E";
+      }
+  } else {
+    var $$l = 0;
+    for (var pug_index0 in $$obj) {
+      $$l++;
+      var val = $$obj[pug_index0];
 
-pug_html = pug_html + "\n    \u003Cdiv class=\"video-foreground\"\u003E";
+pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, true, false)) + "\u002F\u003E";
+    }
+  }
+}).call(this);
 
-pug_html = pug_html + " ";
-
-pug_html = pug_html + "\n      \u003Cdiv id=\"service-video\"\u003E\u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E";
+pug_html = pug_html + "\n  \u003C\u002Fdiv\u003E";
 
 pug_html = pug_html + "\n  \u003Cdiv class=\"service-overlay-content\"\u003E";
 
@@ -44440,71 +44364,53 @@ pug_html = pug_html + "\n          \u003Cdiv\u003E";
 
 pug_html = pug_html + (pug_escape(null == (pug_interp = bottomTitle) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E";
 
-pug_html = pug_html + "\n  \u003Cdiv class=\"go-down\"\u003E";
-
-pug_html = pug_html + "\n    \u003Cdiv class=\"container\"\u003E";
-
-pug_html = pug_html + "\n      \u003Cdiv class=\"row\"\u003E";
-
-pug_html = pug_html + "\n        \u003Cdiv class=\"five columns\"\u003E\u003C\u002Fdiv\u003E";
-
-pug_html = pug_html + "\n        \u003Cdiv class=\"two columns\"\u003E";
-
-pug_html = pug_html + "\n          \u003Cdiv class=\"down-arrow\"\u003E";
-
-pug_html = pug_html + "\u003Cimg src=\"src\u002Farrow-down.png\"\u002F\u003E\u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E";
-
-pug_html = pug_html + "\n        \u003Cdiv class=\"five columns\"\u003E\u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E";
-
 pug_html = pug_html + "\n  \u003Cdiv id=\"service-body\"\u003E";
 
-pug_html = pug_html + "\n    \u003Cdiv class=\"section-inner container\"\u003E";
+pug_html = pug_html + "\n    \u003Cdiv class=\"row\"\u003E";
 
-pug_html = pug_html + "\n      \u003Cdiv class=\"row\"\u003E";
+pug_html = pug_html + "\n      \u003Cdiv class=\"twelve columns\"\u003E";
 
-pug_html = pug_html + "\n        \u003Cdiv class=\"twelve columns\"\u003E";
-
-pug_html = pug_html + "\n          \u003Cdiv class=\"section-title\"\u003E";
+pug_html = pug_html + "\n        \u003Cdiv class=\"section-title\"\u003E";
 
 pug_html = pug_html + (pug_escape(null == (pug_interp = title) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E";
 
-pug_html = pug_html + "\n          \u003Cdiv class=\"section-description\"\u003E";
+pug_html = pug_html + "\n        \u003Cdiv class=\"section-description\"\u003E";
 
-pug_html = pug_html + (pug_escape(null == (pug_interp = description) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E";
+pug_html = pug_html + (pug_escape(null == (pug_interp = description) ? "" : pug_interp)) + "\u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E";
 
-pug_html = pug_html + "\n      \u003Cdiv class=\"row\"\u003E";
+pug_html = pug_html + "\n    \u003Cdiv class=\"row\"\u003E";
 
-pug_html = pug_html + "\n        \u003Cdiv class=\"twelve columns\"\u003E";
+pug_html = pug_html + "\n      \u003Cdiv class=\"twelve columns\"\u003E";
 
-pug_html = pug_html + "\n          \u003Cdiv class=\"section-carousel\"\u003E";
+pug_html = pug_html + "\n        \u003Cdiv class=\"section-carousel\" style=\"height: 35vw;\"\u003E";
 
 // iterate carouselImages
 ;(function(){
   var $$obj = carouselImages;
   if ('number' == typeof $$obj.length) {
-      for (var pug_index0 = 0, $$l = $$obj.length; pug_index0 < $$l; pug_index0++) {
-        var val = $$obj[pug_index0];
+      for (var pug_index1 = 0, $$l = $$obj.length; pug_index1 < $$l; pug_index1++) {
+        var val = $$obj[pug_index1];
 
-pug_html = pug_html + "\n            \u003Cdiv class=\"carousel-image\"\u003E";
+pug_html = pug_html + "\n          \u003Cdiv class=\"carousel-image\"\u003E";
 
-pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, true, false)) + "\u002F\u003E\u003C\u002Fdiv\u003E";
+pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, true, false)+" style=\"height: 35vw; max-height: 1600px; border: none; outline: none; transform: scale(1.1);\"") + "\u002F\u003E\u003C\u002Fdiv\u003E";
       }
   } else {
     var $$l = 0;
-    for (var pug_index0 in $$obj) {
+    for (var pug_index1 in $$obj) {
       $$l++;
-      var val = $$obj[pug_index0];
+      var val = $$obj[pug_index1];
 
-pug_html = pug_html + "\n            \u003Cdiv class=\"carousel-image\"\u003E";
+pug_html = pug_html + "\n          \u003Cdiv class=\"carousel-image\"\u003E";
 
-pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, true, false)) + "\u002F\u003E\u003C\u002Fdiv\u003E";
+pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, true, false)+" style=\"height: 35vw; max-height: 1600px; border: none; outline: none; transform: scale(1.1);\"") + "\u002F\u003E\u003C\u002Fdiv\u003E";
     }
   }
 }).call(this);
 
-pug_html = pug_html + "\n          \u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";}.call(this,"bottomTitle" in locals_for_with?locals_for_with.bottomTitle:typeof bottomTitle!=="undefined"?bottomTitle:undefined,"carouselImages" in locals_for_with?locals_for_with.carouselImages:typeof carouselImages!=="undefined"?carouselImages:undefined,"description" in locals_for_with?locals_for_with.description:typeof description!=="undefined"?description:undefined,"title" in locals_for_with?locals_for_with.title:typeof title!=="undefined"?title:undefined,"topTitle" in locals_for_with?locals_for_with.topTitle:typeof topTitle!=="undefined"?topTitle:undefined));return pug_html;}
+pug_html = pug_html + "\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";}.call(this,"bottomTitle" in locals_for_with?locals_for_with.bottomTitle:typeof bottomTitle!=="undefined"?bottomTitle:undefined,"carouselImages" in locals_for_with?locals_for_with.carouselImages:typeof carouselImages!=="undefined"?carouselImages:undefined,"description" in locals_for_with?locals_for_with.description:typeof description!=="undefined"?description:undefined,"title" in locals_for_with?locals_for_with.title:typeof title!=="undefined"?title:undefined,"topTitle" in locals_for_with?locals_for_with.topTitle:typeof topTitle!=="undefined"?topTitle:undefined));return pug_html;}
 
-},{"fs":1,"pug-runtime":56}],72:[function(require,module,exports){
+},{"fs":1,"pug-runtime":56}],71:[function(require,module,exports){
 var pug = require('pug-runtime');
 module.exports=template;function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
 var pug_indent = [];
@@ -44571,7 +44477,7 @@ pug_html = pug_html + "\n          \u003Crow\u003E";
 
 pug_html = pug_html + "\n            \u003Cinput class=\"button-primary\" value=\"Enviar\" type=\"submit\"\u002F\u003E\n          \u003C\u002Frow\u003E\n        \u003C\u002Fform\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";return pug_html;}
 
-},{"fs":1,"pug-runtime":56}],73:[function(require,module,exports){
+},{"fs":1,"pug-runtime":56}],72:[function(require,module,exports){
 'use strict';
 
 var callPrismic = require('../../utils/prismic-model');
@@ -44584,7 +44490,7 @@ function contact(context, next) {
 
 module.exports = contact;
 
-},{"../../utils/prismic-model":62,"../../utils/render":63,"./contact.pug":72}],74:[function(require,module,exports){
+},{"../../utils/prismic-model":62,"../../utils/render":63,"./contact.pug":71}],73:[function(require,module,exports){
 var pug = require('pug-runtime');
 module.exports=template;function pug_escape(e){var a=""+e,t=pug_match_html.exec(a);if(!t)return e;var r,c,n,s="";for(r=t.index,c=0;r<a.length;r++){switch(a.charCodeAt(r)){case 34:n="&quot;";break;case 38:n="&amp;";break;case 60:n="&lt;";break;case 62:n="&gt;";break;default:continue}c!==r&&(s+=a.substring(c,r)),c=r+1,s+=n}return c!==r?s+a.substring(c,r):s}
 var pug_match_html=/["&<>]/;
@@ -44703,7 +44609,7 @@ pug_html = pug_html + "\u003Ca class=\"services-more-link\" href=\"\u002F#\u002F
 
 pug_html = pug_html + "Ver más\u003C\u002Fa\u003E\n              \u003C\u002Fdiv\u003E\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";}.call(this,"service_modules" in locals_for_with?locals_for_with.service_modules:typeof service_modules!=="undefined"?service_modules:undefined));return pug_html;}
 
-},{"fs":1,"pug-runtime":56}],75:[function(require,module,exports){
+},{"fs":1,"pug-runtime":56}],74:[function(require,module,exports){
 'use strict';
 
 var callPrismic = require('../../utils/prismic-model');
@@ -44712,7 +44618,7 @@ var template = require('./home.pug');
 
 function home(context, next) {
   callPrismic({ documentType: 'homepage' }, function (results, err) {
-    console.log(results);
+    // console.log(results);
     if (err || !results.length || !results) return new Error('Bad request.');
 
     var templateOpts = {
@@ -44743,8 +44649,7 @@ function home(context, next) {
       // console.log(wScroll)
 
       $('.down-arrow').css({
-        'transform': 'translate(0px, ' + wScroll / 2 + '%)',
-        'filter': 'blur(' + wScroll / 50 + 'px)'
+        'transform': 'translate(0px, ' + wScroll / 2 + '%)'
       });
 
       $('.home-overlay-content').css({
@@ -44756,8 +44661,6 @@ function home(context, next) {
       } else {
         $('#main-nav').css({ 'background-color': 'rgba(34, 34, 40, .9)' });
       }
-
-      console.log(wScroll);
     });
 
     // Scrolling to service section
@@ -44767,8 +44670,6 @@ function home(context, next) {
     });
 
     initHomeVideo(results, $section);
-
-    $('.down-arrow').addClass('down-animate');
   });
 }
 
@@ -44828,6 +44729,7 @@ function createHomeVideo($section, videoId) {
   function onPlayerReady(event) {
     event.target.setPlaybackQuality('default');
     event.target.mute();
+    $('.down-arrow').addClass('down-animate');
   }
 
   function onPlayerStateChange(event) {
@@ -44850,7 +44752,7 @@ function createHomeVideo($section, videoId) {
 
 module.exports = home;
 
-},{"../../utils/prismic-model":62,"../../utils/render":63,"./home.pug":74}],76:[function(require,module,exports){
+},{"../../utils/prismic-model":62,"../../utils/render":63,"./home.pug":73}],75:[function(require,module,exports){
 'use strict';
 
 var callPrismic = require('../../utils/prismic-model');
@@ -44873,7 +44775,7 @@ function policy(context, next) {
 
 module.exports = policy;
 
-},{"../../utils/prismic-model":62,"../../utils/render":63,"./policy.pug":77}],77:[function(require,module,exports){
+},{"../../utils/prismic-model":62,"../../utils/render":63,"./policy.pug":76}],76:[function(require,module,exports){
 var pug = require('pug-runtime');
 module.exports=template;function pug_escape(e){var a=""+e,t=pug_match_html.exec(a);if(!t)return e;var r,c,n,s="";for(r=t.index,c=0;r<a.length;r++){switch(a.charCodeAt(r)){case 34:n="&quot;";break;case 38:n="&amp;";break;case 60:n="&lt;";break;case 62:n="&gt;";break;default:continue}c!==r&&(s+=a.substring(c,r)),c=r+1,s+=n}return c!==r?s+a.substring(c,r):s}
 var pug_match_html=/["&<>]/;
@@ -44896,7 +44798,7 @@ pug_html = pug_html + "\n        \u003Cp\u003E";
 
 pug_html = pug_html + (pug_escape(null == (pug_interp = description) ? "" : pug_interp)) + "\u003C\u002Fp\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";}.call(this,"description" in locals_for_with?locals_for_with.description:typeof description!=="undefined"?description:undefined,"title" in locals_for_with?locals_for_with.title:typeof title!=="undefined"?title:undefined));return pug_html;}
 
-},{"fs":1,"pug-runtime":56}],78:[function(require,module,exports){
+},{"fs":1,"pug-runtime":56}],77:[function(require,module,exports){
 'use strict';
 
 var callPrismic = require('../../utils/prismic-model');
@@ -45044,7 +44946,7 @@ function createHomeVideo($section, videoId) {
 
 module.exports = real_state;
 
-},{"../../utils/prismic-model":62,"../../utils/render":63,"../base/service-section.pug":71,"slick-carousel":57}],79:[function(require,module,exports){
+},{"../../utils/prismic-model":62,"../../utils/render":63,"../base/service-section.pug":70,"slick-carousel":57}],78:[function(require,module,exports){
 'use strict';
 
 var callPrismic = require('../../utils/prismic-model');
@@ -45191,4 +45093,4 @@ function createHomeVideo($section, videoId) {
 
 module.exports = turism;
 
-},{"../../utils/prismic-model":62,"../../utils/render":63,"../base/service-section.pug":71}]},{},[59]);
+},{"../../utils/prismic-model":62,"../../utils/render":63,"../base/service-section.pug":70}]},{},[59]);
