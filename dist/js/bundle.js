@@ -44760,7 +44760,8 @@ function real_state(context, next) {
     console.log(results);
 
     var templateOptions = {
-      carouselImages: results[0].data['service-page.carousel-images'].value,
+      topCarouselImages: results[0].data['service-page.top-carousel-images'].value[0],
+      carouselImages: results[0].data['service-page.carousel-images'].value[0],
       description: results[0].data['service-page.service-description'].value[0].text,
       topTitle: results[0].data['service-page.top-title'].value[0].text,
       bottomTitle: results[0].data['service-page.bottom-title'].value[0].text,
@@ -44778,115 +44779,7 @@ function real_state(context, next) {
         slidesToShow: 1
       });
     });
-
-    // Overlay arrow scroll animation
-
-    $(window).scroll(function () {
-      var wScroll = $(this).scrollTop();
-      // console.log(wScroll)
-
-      $('.down-arrow').css({
-        'transform': 'translate(0px, ' + wScroll / 2 + '%)',
-        'filter': 'blur(' + wScroll / 50 + 'px)'
-      });
-
-      $('.service-overlay-content').css({
-        'transform': 'translate(0px, ' + wScroll / 8 + '%)'
-      });
-
-      if (wScroll > 500) {
-        $('#main-nav').css({ 'background-color': 'rgba(34, 34, 40, 1)' });
-      } else {
-        $('#main-nav').css({ 'background-color': 'rgba(34, 34, 40, .9)' });
-      }
-    });
-
-    // Scrolling to service section
-
-    $('.down-arrow').click(function () {
-      scrollDown('.section-inner', 800);
-    });
-
-    var $section = $('.service-section');
-
-    initAdvertisingVideo(results, $section);
   });
-}
-
-function scrollDown(target, timing) {
-  var scrollTarget = $(target).offset().top;
-  $('html, body').animate({ scrollTop: scrollTarget }, timing, function () {
-    $('html, body').clearQueue();
-  });
-}
-
-function initAdvertisingVideo(results, $section, videoId) {
-  var videoURL = results[0].data['service-page.video-link'].value[0].text;
-
-  if (!videoURL || !(typeof videoURL == 'string')) {
-    return;
-  }
-
-  // BEWARE: Obscure string manipulation ahead
-  var videoId = videoURL.slice(videoURL.indexOf('v=') + 2);
-
-  createHomeVideo($section, videoId);
-}
-
-function createHomeVideo($section, videoId) {
-  var $videoCont = $section.find('.video-background');
-
-  var tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  var firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-  var player;
-  window.onYouTubeIframeAPIReady = function () {
-    player = new YT.Player('advertising-video', {
-      videoId: videoId,
-      height: '100%',
-      width: '100%',
-      fitToBackground: true,
-      playerVars: {
-        'autoplay': 1,
-        'rel': 0,
-        'showinfo': 0,
-        'showsearch': 0,
-        'controls': 0,
-        'loop': 1,
-        'enablejsapi': 1,
-        'playlist': videoId,
-        'modestbranding': 1
-      },
-      events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
-      }
-    });
-  };
-
-  function onPlayerReady(event) {
-    event.target.setPlaybackQuality('default');
-    event.target.mute();
-  }
-
-  function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.PLAYING) {
-      showVideo();
-    }
-    if (event.data == YT.PlayerState.ENDED) {
-      hideVideo();
-    }
-  }
-
-  function showVideo() {
-    $videoCont.removeClass('hide-opacity');
-  }
-
-  function hideVideo() {
-    $videoCont.addClass('hide-opacity');
-  }
 }
 
 module.exports = real_state;
@@ -44897,6 +44790,8 @@ module.exports = real_state;
 var callPrismic = require('../../utils/prismic-model');
 var render = require('../../utils/render');
 var template = require('../base/service-section.pug');
+var slick = require('slick-carousel');
+var _ = require('lodash');
 
 function turism(context, next) {
   callPrismic({
@@ -44904,10 +44799,10 @@ function turism(context, next) {
     tags: 'turismo'
   }, function (results, err) {
     if (err) return new Error('Bad Request');
-    console.log(results);
 
     var templateOptions = {
-      carouselImages: results[0].data['service-page.carousel-images'].value,
+      topCarouselImages: results[0].data['service-page.top-carousel-images'].value[0],
+      carouselImages: results[0].data['service-page.carousel-images'].value[0],
       description: results[0].data['service-page.service-description'].value[0].text,
       topTitle: results[0].data['service-page.top-title'].value[0].text,
       bottomTitle: results[0].data['service-page.bottom-title'].value[0].text,
@@ -44915,6 +44810,7 @@ function turism(context, next) {
     };
 
     render(context, template, templateOptions, function () {
+
       var $section = $('.service-section');
 
       $section.find('.section-carousel').slick({
@@ -44922,120 +44818,25 @@ function turism(context, next) {
         infinite: true,
         speed: 500,
         autoplay: true,
-        slidesToShow: 1
-      });
-    });
-
-    // Overlay arrow scroll animation
-
-    $(window).scroll(function () {
-      var wScroll = $(this).scrollTop();
-      // console.log(wScroll)
-
-      $('.down-arrow').css({
-        'transform': 'translate(0px, ' + wScroll / 2 + '%)',
-        'filter': 'blur(' + wScroll / 50 + 'px)'
+        slidesToShow: 1,
+        fade: true,
+        cssEase: 'ease-in-out'
       });
 
-      $('.service-overlay-content').css({
-        'transform': 'translate(0px, ' + wScroll / 8 + '%)'
+      $section.find('.top-carousel').slick({
+        dots: true,
+        autoplay: true,
+        speed: 650,
+        slidesToShow: 1,
+        infinite: true,
+        arrows: false,
+        fade: true,
+        cssEase: 'ease-in-out'
       });
-
-      if (wScroll > 500) {
-        $('#main-nav').css({ 'background-color': 'rgba(34, 34, 40, 1)' });
-      } else {
-        $('#main-nav').css({ 'background-color': 'rgba(34, 34, 40, .9)' });
-      }
     });
-
-    // Scrolling to service section
-
-    $('.down-arrow').click(function () {
-      scrollDown('.section-inner', 800);
-    });
-
-    var $section = $('.service-section');
-
-    initAdvertisingVideo(results, $section);
   });
-}
-
-function scrollDown(target, timing) {
-  var scrollTarget = $(target).offset().top;
-  $('html, body').animate({ scrollTop: scrollTarget }, timing, function () {
-    $('html, body').clearQueue();
-  });
-}
-
-function initAdvertisingVideo(results, $section, videoId) {
-  var videoURL = results[0].data['service-page.video-link'].value[0].text;
-
-  if (!videoURL || !(typeof videoURL == 'string')) {
-    return;
-  }
-
-  // BEWARE: Obscure string manipulation ahead
-  var videoId = videoURL.slice(videoURL.indexOf('v=') + 2);
-
-  createHomeVideo($section, videoId);
-}
-
-function createHomeVideo($section, videoId) {
-  var $videoCont = $section.find('.video-background');
-
-  var tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  var firstScriptTag = document.getElementsByTagName('script')[0];
-  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-  var player;
-  window.onYouTubeIframeAPIReady = function () {
-    player = new YT.Player('advertising-video', {
-      videoId: videoId,
-      height: '100%',
-      width: '100%',
-      fitToBackground: true,
-      playerVars: {
-        'autoplay': 1,
-        'rel': 0,
-        'showinfo': 0,
-        'showsearch': 0,
-        'controls': 0,
-        'loop': 1,
-        'enablejsapi': 1,
-        'playlist': videoId,
-        'modestbranding': 1
-      },
-      events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
-      }
-    });
-  };
-
-  function onPlayerReady(event) {
-    event.target.setPlaybackQuality('default');
-    event.target.mute();
-  }
-
-  function onPlayerStateChange(event) {
-    if (event.data == YT.PlayerState.PLAYING) {
-      showVideo();
-    }
-    if (event.data == YT.PlayerState.ENDED) {
-      hideVideo();
-    }
-  }
-
-  function showVideo() {
-    $videoCont.removeClass('hide-opacity');
-  }
-
-  function hideVideo() {
-    $videoCont.addClass('hide-opacity');
-  }
 }
 
 module.exports = turism;
 
-},{"../../utils/prismic-model":62,"../../utils/render":63,"../base/service-section.pug":70}]},{},[59]);
+},{"../../utils/prismic-model":62,"../../utils/render":63,"../base/service-section.pug":70,"lodash":39,"slick-carousel":57}]},{},[59]);
