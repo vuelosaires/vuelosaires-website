@@ -4,7 +4,7 @@
   "description": "Business website for Vuelos Aires.",
   "main": "index.js",
   "scripts": {
-    "start": "python -m SimpleHTTPServer 3335"
+    "start": "python -m SimpleHTTPServer 3333"
   },
   "dependencies": {
     "babel-preset-es2015": "^6.16.0",

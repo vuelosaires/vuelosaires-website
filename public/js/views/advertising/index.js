@@ -2,7 +2,6 @@ const callPrismic = require('../../utils/prismic-model');
 const render = require('../../utils/render');
 const template = require('../base/service-section.pug');
 const slick = require('slick-carousel');
-// const scrollDown = require('../../utils/scroll-down');
 const _ = require('lodash');
 
 function advertising (context, next) {
@@ -13,8 +12,8 @@ function advertising (context, next) {
     if (err) return new Error('Bad Request');
 
     const templateOptions = {
-      topCarouselImages: results[0].data['service-page.top-carousel-images'].value,
-      carouselImages: results[0].data['service-page.carousel-images'].value,
+      topCarouselImages: results[0].data['service-page.top-carousel-images'].value[0],
+      carouselImages: results[0].data['service-page.carousel-images'].value[0],
       description: results[0].data['service-page.service-description'].value[0].text,
       topTitle: results[0].data['service-page.top-title'].value[0].text,
       bottomTitle: results[0].data['service-page.bottom-title'].value[0].text,
@@ -45,26 +44,6 @@ function advertising (context, next) {
         fade: true,
         cssEase: 'ease-in-out'
       })
-
-      // Overlay arrow scroll animation
-
-      let onScroll = function(){
-        var wScroll = $(this).scrollTop();
-
-        $('.service-overlay-content').css({
-          'transform' : 'translate(0px, ' + wScroll / 8 + '%)'
-        })
-
-        if (wScroll > 500) {
-          $('#main-nav').css({'background-color' : 'rgba(34, 34, 40, 1)'})
-        } else {
-          $('#main-nav').css({'background-color' : 'rgba(34, 34, 40, .9)'})
-        }
-      }
-
-      $(window).scroll(onScroll);
-
-      // Scrolling to service section
 
     });
 

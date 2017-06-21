@@ -1,8 +1,8 @@
 //- This can't have an ID of #publicidad cause the adblocker blocks it
 .service-section
   .top-carousel
-    each val in carouselImages
-      img(src=val.image1.value.main.url)
+    each val in [topCarouselImages.image_1,topCarouselImages.image_2,topCarouselImages.image_3]
+      img(src=val.value.main.url)
   .service-overlay-content
     .container
       .row
@@ -16,7 +16,7 @@
           .section-description= description
       .row
         .twelve.columns
-          .section-carousel(style="height: 35vw")
-            each val in carouselImages
+          .section-carousel.wow.fadeInUp(style="height: 35vw")
+            each val in [carouselImages.image_1,carouselImages.image_2,carouselImages.image_3]
               .carousel-image
-                img(src=val.image1.value.main.url style="height: 35vw; max-height: 1600px; border: none; outline: none; transform: scale(1.1)")
+                img(src=val.value.main.url style="height: 35vw; max-height: 1600px")

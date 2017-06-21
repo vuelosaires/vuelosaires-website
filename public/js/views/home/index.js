@@ -1,6 +1,7 @@
 const callPrismic = require('../../utils/prismic-model');
 const render = require('../../utils/render');
 const template = require('./home.pug');
+const wow = require('wowjs');
 
 function home (context, next) {
   callPrismic({ documentType: 'homepage' }, (results, err) => {
@@ -28,15 +29,10 @@ function home (context, next) {
 
     const $section = $('#home');
 
-    // Overlay arrow scroll animation
+    // Scrolling parallax effect and navbar opacity
 
     $(window).scroll(function(){
       var wScroll = $(this).scrollTop();
-      // console.log(wScroll)
-
-      $('.down-arrow').css({
-        'transform' : 'translate(0px, ' + wScroll / 2 + '%)',
-      })
 
       $('.home-overlay-content').css({
         'transform' : 'translate(0px, ' + wScroll / 8 + '%)'
@@ -49,23 +45,10 @@ function home (context, next) {
       }
     });
 
-    // Scrolling to service section
-
-    $('.down-arrow').click(function(){
-      scrollDown('#home-body', 800);
-    });
-
     initHomeVideo(results, $section);
 
   });
 }
-
-function scrollDown(target, timing) {
-    let scrollTarget = $(target).offset().top;
-    $('html, body').animate({scrollTop: scrollTarget}, timing, function(){
-      $('html, body').clearQueue();
-    })
-  }
 
 function initHomeVideo (results, $section, videoId) {
   var videoURL = results[0].data['homepage.video-link'].value[0].text;
@@ -78,7 +61,6 @@ function initHomeVideo (results, $section, videoId) {
   var videoId = videoURL.slice(videoURL.indexOf('v=')+2);
 
   createHomeVideo($section, videoId);
-
 
 }
 
@@ -118,7 +100,6 @@ function createHomeVideo ($section, videoId) {
   function onPlayerReady(event) {
     event.target.setPlaybackQuality('default');
     event.target.mute();
-    $('.down-arrow').addClass('down-animate');
   }
 
   function onPlayerStateChange(event) {

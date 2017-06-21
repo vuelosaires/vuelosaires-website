@@ -44236,7 +44236,6 @@ var callPrismic = require('../../utils/prismic-model');
 var render = require('../../utils/render');
 var template = require('../base/service-section.pug');
 var slick = require('slick-carousel');
-// const scrollDown = require('../../utils/scroll-down');
 var _ = require('lodash');
 
 function advertising(context, next) {
@@ -44247,8 +44246,8 @@ function advertising(context, next) {
     if (err) return new Error('Bad Request');
 
     var templateOptions = {
-      topCarouselImages: results[0].data['service-page.top-carousel-images'].value,
-      carouselImages: results[0].data['service-page.carousel-images'].value,
+      topCarouselImages: results[0].data['service-page.top-carousel-images'].value[0],
+      carouselImages: results[0].data['service-page.carousel-images'].value[0],
       description: results[0].data['service-page.service-description'].value[0].text,
       topTitle: results[0].data['service-page.top-title'].value[0].text,
       bottomTitle: results[0].data['service-page.bottom-title'].value[0].text,
@@ -44279,26 +44278,6 @@ function advertising(context, next) {
         fade: true,
         cssEase: 'ease-in-out'
       });
-
-      // Overlay arrow scroll animation
-
-      var onScroll = function onScroll() {
-        var wScroll = $(this).scrollTop();
-
-        $('.service-overlay-content').css({
-          'transform': 'translate(0px, ' + wScroll / 8 + '%)'
-        });
-
-        if (wScroll > 500) {
-          $('#main-nav').css({ 'background-color': 'rgba(34, 34, 40, 1)' });
-        } else {
-          $('#main-nav').css({ 'background-color': 'rgba(34, 34, 40, .9)' });
-        }
-      };
-
-      $(window).scroll(onScroll);
-
-      // Scrolling to service section
     });
   });
 }
@@ -44320,20 +44299,20 @@ module.exports=template;function pug_attr(t,e,n,f){return e!==!1&&null!=e&&(e||"
 function pug_escape(e){var a=""+e,t=pug_match_html.exec(a);if(!t)return e;var r,c,n,s="";for(r=t.index,c=0;r<a.length;r++){switch(a.charCodeAt(r)){case 34:n="&quot;";break;case 38:n="&amp;";break;case 60:n="&lt;";break;case 62:n="&gt;";break;default:continue}c!==r&&(s+=a.substring(c,r)),c=r+1,s+=n}return c!==r?s+a.substring(c,r):s}
 var pug_match_html=/["&<>]/;
 function pug_rethrow(n,e,r,t){if(!(n instanceof Error))throw n;if(!("undefined"==typeof window&&e||t))throw n.message+=" on line "+r,n;try{t=t||require("fs").readFileSync(e,"utf8")}catch(e){pug_rethrow(n,null,r)}var i=3,a=t.split("\n"),o=Math.max(r-i,0),h=Math.min(a.length,r+i),i=a.slice(o,h).map(function(n,e){var t=e+o+1;return(t==r?"  > ":"    ")+t+"| "+n}).join("\n");throw n.path=e,n.message=(e||"Pug")+":"+r+"\n"+i+"\n\n"+n.message,n}function template(locals) {var pug_html = "", pug_mixins = {}, pug_interp;
-;var locals_for_with = (locals || {});(function (bottomTitle, carouselImages, description, title, topTitle) {var pug_indent = [];
+;var locals_for_with = (locals || {});(function (bottomTitle, carouselImages, description, title, topCarouselImages, topTitle) {var pug_indent = [];
 
 pug_html = pug_html + "\n\u003Cdiv class=\"service-section\"\u003E";
 
 pug_html = pug_html + "\n  \u003Cdiv class=\"top-carousel\"\u003E";
 
-// iterate carouselImages
+// iterate [topCarouselImages.image_1,topCarouselImages.image_2,topCarouselImages.image_3]
 ;(function(){
-  var $$obj = carouselImages;
+  var $$obj = [topCarouselImages.image_1,topCarouselImages.image_2,topCarouselImages.image_3];
   if ('number' == typeof $$obj.length) {
       for (var pug_index0 = 0, $$l = $$obj.length; pug_index0 < $$l; pug_index0++) {
         var val = $$obj[pug_index0];
 
-pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, true, false)) + "\u002F\u003E";
+pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.value.main.url, true, false)) + "\u002F\u003E";
       }
   } else {
     var $$l = 0;
@@ -44341,7 +44320,7 @@ pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, 
       $$l++;
       var val = $$obj[pug_index0];
 
-pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, true, false)) + "\u002F\u003E";
+pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.value.main.url, true, false)) + "\u002F\u003E";
     }
   }
 }).call(this);
@@ -44382,18 +44361,18 @@ pug_html = pug_html + "\n    \u003Cdiv class=\"row\"\u003E";
 
 pug_html = pug_html + "\n      \u003Cdiv class=\"twelve columns\"\u003E";
 
-pug_html = pug_html + "\n        \u003Cdiv class=\"section-carousel\" style=\"height: 35vw;\"\u003E";
+pug_html = pug_html + "\n        \u003Cdiv class=\"section-carousel wow fadeInUp\" style=\"height: 35vw;\"\u003E";
 
-// iterate carouselImages
+// iterate [carouselImages.image_1,carouselImages.image_2,carouselImages.image_3]
 ;(function(){
-  var $$obj = carouselImages;
+  var $$obj = [carouselImages.image_1,carouselImages.image_2,carouselImages.image_3];
   if ('number' == typeof $$obj.length) {
       for (var pug_index1 = 0, $$l = $$obj.length; pug_index1 < $$l; pug_index1++) {
         var val = $$obj[pug_index1];
 
 pug_html = pug_html + "\n          \u003Cdiv class=\"carousel-image\"\u003E";
 
-pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, true, false)+" style=\"height: 35vw; max-height: 1600px; border: none; outline: none; transform: scale(1.1);\"") + "\u002F\u003E\u003C\u002Fdiv\u003E";
+pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.value.main.url, true, false)+" style=\"height: 35vw; max-height: 1600px;\"") + "\u002F\u003E\u003C\u002Fdiv\u003E";
       }
   } else {
     var $$l = 0;
@@ -44403,12 +44382,12 @@ pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, 
 
 pug_html = pug_html + "\n          \u003Cdiv class=\"carousel-image\"\u003E";
 
-pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.image1.value.main.url, true, false)+" style=\"height: 35vw; max-height: 1600px; border: none; outline: none; transform: scale(1.1);\"") + "\u002F\u003E\u003C\u002Fdiv\u003E";
+pug_html = pug_html + "\u003Cimg" + (pug_attr("src", val.value.main.url, true, false)+" style=\"height: 35vw; max-height: 1600px;\"") + "\u002F\u003E\u003C\u002Fdiv\u003E";
     }
   }
 }).call(this);
 
-pug_html = pug_html + "\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";}.call(this,"bottomTitle" in locals_for_with?locals_for_with.bottomTitle:typeof bottomTitle!=="undefined"?bottomTitle:undefined,"carouselImages" in locals_for_with?locals_for_with.carouselImages:typeof carouselImages!=="undefined"?carouselImages:undefined,"description" in locals_for_with?locals_for_with.description:typeof description!=="undefined"?description:undefined,"title" in locals_for_with?locals_for_with.title:typeof title!=="undefined"?title:undefined,"topTitle" in locals_for_with?locals_for_with.topTitle:typeof topTitle!=="undefined"?topTitle:undefined));return pug_html;}
+pug_html = pug_html + "\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";}.call(this,"bottomTitle" in locals_for_with?locals_for_with.bottomTitle:typeof bottomTitle!=="undefined"?bottomTitle:undefined,"carouselImages" in locals_for_with?locals_for_with.carouselImages:typeof carouselImages!=="undefined"?carouselImages:undefined,"description" in locals_for_with?locals_for_with.description:typeof description!=="undefined"?description:undefined,"title" in locals_for_with?locals_for_with.title:typeof title!=="undefined"?title:undefined,"topCarouselImages" in locals_for_with?locals_for_with.topCarouselImages:typeof topCarouselImages!=="undefined"?topCarouselImages:undefined,"topTitle" in locals_for_with?locals_for_with.topTitle:typeof topTitle!=="undefined"?topTitle:undefined));return pug_html;}
 
 },{"fs":1,"pug-runtime":56}],71:[function(require,module,exports){
 var pug = require('pug-runtime');
@@ -44501,9 +44480,7 @@ pug_html = pug_html + "\n\u003Cdiv id=\"home\"\u003E";
 
 pug_html = pug_html + "\n  \u003Cdiv class=\"home-overlay\"\u003E\u003C\u002Fdiv\u003E";
 
-pug_html = pug_html + "\n  \u003Cdiv class=\"overlay-shadow\"\u003E";
-
-pug_html = pug_html + "\u003Cimg src=\"src\u002Foverlay-video.png\"\u002F\u003E\u003C\u002Fdiv\u003E";
+pug_html = pug_html + "\n  \u003Cdiv class=\"overlay-shadow\"\u003E\u003C\u002Fdiv\u003E";
 
 pug_html = pug_html + "\n  \u003Cdiv class=\"video-background hide-opacity\"\u003E";
 
@@ -44513,7 +44490,7 @@ pug_html = pug_html + " ";
 
 pug_html = pug_html + "\n      \u003Cdiv id=\"home-video\"\u003E\u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E";
 
-pug_html = pug_html + "\n  \u003Cdiv class=\"home-overlay-content\"\u003E";
+pug_html = pug_html + "\n  \u003Cdiv class=\"home-overlay-content wow fadeInRight\"\u003E";
 
 pug_html = pug_html + "\n    \u003Cdiv class=\"container\"\u003E";
 
@@ -44528,22 +44505,6 @@ pug_html = pug_html + "The good thing about drones\u003C\u002Fdiv\u003E";
 pug_html = pug_html + "\n          \u003Cdiv\u003E";
 
 pug_html = pug_html + "is that they rock\u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E";
-
-pug_html = pug_html + "\n  \u003Cdiv class=\"go-down\"\u003E";
-
-pug_html = pug_html + "\n    \u003Cdiv class=\"container\"\u003E";
-
-pug_html = pug_html + "\n      \u003Cdiv class=\"row\"\u003E";
-
-pug_html = pug_html + "\n        \u003Cdiv class=\"five columns\"\u003E\u003C\u002Fdiv\u003E";
-
-pug_html = pug_html + "\n        \u003Cdiv class=\"two columns\"\u003E";
-
-pug_html = pug_html + "\n          \u003Cdiv class=\"down-arrow\"\u003E";
-
-pug_html = pug_html + "\u003Cimg src=\"src\u002Farrow-down.png\"\u002F\u003E\u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E";
-
-pug_html = pug_html + "\n        \u003Cdiv class=\"five columns\"\u003E\u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E";
 
 pug_html = pug_html + "\n  \u003Cdiv id=\"home-body\"\u003E";
 
@@ -44561,53 +44522,55 @@ pug_html = pug_html + "Nuestros Servicios\u003C\u002Fh2\u003E";
 
 pug_html = pug_html + "\n            \u003Cdiv class=\"row\"\u003E";
 
-pug_html = pug_html + "\n              \u003Cdiv class=\"four columns service-module\"\u003E";
+// iterate service_modules
+;(function(){
+  var $$obj = service_modules;
+  if ('number' == typeof $$obj.length) {
+      for (var pug_index0 = 0, $$l = $$obj.length; pug_index0 < $$l; pug_index0++) {
+        var val = $$obj[pug_index0];
 
-pug_html = pug_html + "\u003Cimg class=\"module-pic\" src=\"https:\u002F\u002Fstatic1.squarespace.com\u002Fstatic\u002F5547ba95e4b06698c531adc2\u002Ft\u002F55617d2ae4b004a8dfc586bb\u002F1432423570132\u002Fcircular+placeholder.jpg\"\u002F\u003E";
+pug_html = pug_html + "\n              \u003Cdiv class=\"four columns service-module wow fadeInUp\" data-wow-delay=\"0.1s\"\u003E";
 
-pug_html = pug_html + "\n                \u003Ch3 class=\"service-title\"\u003E";
+pug_html = pug_html + "\u003Cimg class=\"module-pic wow fadeInUp\" data-wow-delay=\"0.2\" src=\"https:\u002F\u002Fstatic1.squarespace.com\u002Fstatic\u002F5547ba95e4b06698c531adc2\u002Ft\u002F55617d2ae4b004a8dfc586bb\u002F1432423570132\u002Fcircular+placeholder.jpg\"\u002F\u003E";
 
-pug_html = pug_html + (pug_escape(null == (pug_interp = service_modules.advertising.title) ? "" : pug_interp)) + "\u003C\u002Fh3\u003E";
+pug_html = pug_html + "\n                \u003Ch3 class=\"service-title wow fadeInUp\" data-wow-delay=\"0.3\"\u003E";
 
-pug_html = pug_html + "\n                \u003Cp class=\"service-description\"\u003E";
+pug_html = pug_html + (pug_escape(null == (pug_interp = val.title) ? "" : pug_interp)) + "\u003C\u002Fh3\u003E";
 
-pug_html = pug_html + (pug_escape(null == (pug_interp = service_modules.advertising.description) ? "" : pug_interp)) + "\u003C\u002Fp\u003E";
+pug_html = pug_html + "\n                \u003Cp class=\"service-description wow fadeInUp\" data-wow-delay=\"0.4\"\u003E";
 
-pug_html = pug_html + "\u003Ca class=\"services-more-link\" href=\"\u002F#\u002Fadvertising\"\u003E";
+pug_html = pug_html + (pug_escape(null == (pug_interp = val.description) ? "" : pug_interp)) + "\u003C\u002Fp\u003E";
 
-pug_html = pug_html + "Ver más\u003C\u002Fa\u003E\n              \u003C\u002Fdiv\u003E";
-
-pug_html = pug_html + "\n              \u003Cdiv class=\"four columns service-module\"\u003E";
-
-pug_html = pug_html + "\u003Cimg class=\"module-pic\" src=\"https:\u002F\u002Fstatic1.squarespace.com\u002Fstatic\u002F5547ba95e4b06698c531adc2\u002Ft\u002F55617d2ae4b004a8dfc586bb\u002F1432423570132\u002Fcircular+placeholder.jpg\"\u002F\u003E";
-
-pug_html = pug_html + "\n                \u003Ch3 class=\"service-title\"\u003E";
-
-pug_html = pug_html + (pug_escape(null == (pug_interp = service_modules.turism.title) ? "" : pug_interp)) + "\u003C\u002Fh3\u003E";
-
-pug_html = pug_html + "\n                \u003Cp class=\"service-description\"\u003E";
-
-pug_html = pug_html + (pug_escape(null == (pug_interp = service_modules.turism.description) ? "" : pug_interp)) + "\u003C\u002Fp\u003E";
-
-pug_html = pug_html + "\u003Ca class=\"services-more-link\" href=\"\u002F#\u002Fturism\"\u003E";
+pug_html = pug_html + "\u003Ca class=\"services-more-link wow fadeInUp\" data-wow-delay=\"0.5\" href=\"#\"\u003E";
 
 pug_html = pug_html + "Ver más\u003C\u002Fa\u003E\n              \u003C\u002Fdiv\u003E";
+      }
+  } else {
+    var $$l = 0;
+    for (var pug_index0 in $$obj) {
+      $$l++;
+      var val = $$obj[pug_index0];
 
-pug_html = pug_html + "\n              \u003Cdiv class=\"four columns service-module\"\u003E";
+pug_html = pug_html + "\n              \u003Cdiv class=\"four columns service-module wow fadeInUp\" data-wow-delay=\"0.1s\"\u003E";
 
-pug_html = pug_html + "\u003Cimg class=\"module-pic\" src=\"https:\u002F\u002Fstatic1.squarespace.com\u002Fstatic\u002F5547ba95e4b06698c531adc2\u002Ft\u002F55617d2ae4b004a8dfc586bb\u002F1432423570132\u002Fcircular+placeholder.jpg\"\u002F\u003E";
+pug_html = pug_html + "\u003Cimg class=\"module-pic wow fadeInUp\" data-wow-delay=\"0.2\" src=\"https:\u002F\u002Fstatic1.squarespace.com\u002Fstatic\u002F5547ba95e4b06698c531adc2\u002Ft\u002F55617d2ae4b004a8dfc586bb\u002F1432423570132\u002Fcircular+placeholder.jpg\"\u002F\u003E";
 
-pug_html = pug_html + "\n                \u003Ch3 class=\"service-title\"\u003E";
+pug_html = pug_html + "\n                \u003Ch3 class=\"service-title wow fadeInUp\" data-wow-delay=\"0.3\"\u003E";
 
-pug_html = pug_html + (pug_escape(null == (pug_interp = service_modules.real_state.title) ? "" : pug_interp)) + "\u003C\u002Fh3\u003E";
+pug_html = pug_html + (pug_escape(null == (pug_interp = val.title) ? "" : pug_interp)) + "\u003C\u002Fh3\u003E";
 
-pug_html = pug_html + "\n                \u003Cp class=\"service-description\"\u003E";
+pug_html = pug_html + "\n                \u003Cp class=\"service-description wow fadeInUp\" data-wow-delay=\"0.4\"\u003E";
 
-pug_html = pug_html + (pug_escape(null == (pug_interp = service_modules.real_state.description) ? "" : pug_interp)) + "\u003C\u002Fp\u003E";
+pug_html = pug_html + (pug_escape(null == (pug_interp = val.description) ? "" : pug_interp)) + "\u003C\u002Fp\u003E";
 
-pug_html = pug_html + "\u003Ca class=\"services-more-link\" href=\"\u002F#\u002Freal_state\"\u003E";
+pug_html = pug_html + "\u003Ca class=\"services-more-link wow fadeInUp\" data-wow-delay=\"0.5\" href=\"#\"\u003E";
 
-pug_html = pug_html + "Ver más\u003C\u002Fa\u003E\n              \u003C\u002Fdiv\u003E\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";}.call(this,"service_modules" in locals_for_with?locals_for_with.service_modules:typeof service_modules!=="undefined"?service_modules:undefined));return pug_html;}
+pug_html = pug_html + "Ver más\u003C\u002Fa\u003E\n              \u003C\u002Fdiv\u003E";
+    }
+  }
+}).call(this);
+
+pug_html = pug_html + "\n            \u003C\u002Fdiv\u003E\n          \u003C\u002Fdiv\u003E\n        \u003C\u002Fdiv\u003E\n      \u003C\u002Fdiv\u003E\n    \u003C\u002Fdiv\u003E\n  \u003C\u002Fdiv\u003E\n\u003C\u002Fdiv\u003E";}.call(this,"service_modules" in locals_for_with?locals_for_with.service_modules:typeof service_modules!=="undefined"?service_modules:undefined));return pug_html;}
 
 },{"fs":1,"pug-runtime":56}],74:[function(require,module,exports){
 'use strict';
@@ -44615,6 +44578,7 @@ pug_html = pug_html + "Ver más\u003C\u002Fa\u003E\n              \u003C\u002Fdi
 var callPrismic = require('../../utils/prismic-model');
 var render = require('../../utils/render');
 var template = require('./home.pug');
+var wow = require('wowjs');
 
 function home(context, next) {
   callPrismic({ documentType: 'homepage' }, function (results, err) {
@@ -44642,15 +44606,10 @@ function home(context, next) {
 
     var $section = $('#home');
 
-    // Overlay arrow scroll animation
+    // Scrolling parallax effect and navbar opacity
 
     $(window).scroll(function () {
       var wScroll = $(this).scrollTop();
-      // console.log(wScroll)
-
-      $('.down-arrow').css({
-        'transform': 'translate(0px, ' + wScroll / 2 + '%)'
-      });
 
       $('.home-overlay-content').css({
         'transform': 'translate(0px, ' + wScroll / 8 + '%)'
@@ -44663,20 +44622,7 @@ function home(context, next) {
       }
     });
 
-    // Scrolling to service section
-
-    $('.down-arrow').click(function () {
-      scrollDown('#home-body', 800);
-    });
-
     initHomeVideo(results, $section);
-  });
-}
-
-function scrollDown(target, timing) {
-  var scrollTarget = $(target).offset().top;
-  $('html, body').animate({ scrollTop: scrollTarget }, timing, function () {
-    $('html, body').clearQueue();
   });
 }
 
@@ -44729,7 +44675,6 @@ function createHomeVideo($section, videoId) {
   function onPlayerReady(event) {
     event.target.setPlaybackQuality('default');
     event.target.mute();
-    $('.down-arrow').addClass('down-animate');
   }
 
   function onPlayerStateChange(event) {
@@ -44752,7 +44697,7 @@ function createHomeVideo($section, videoId) {
 
 module.exports = home;
 
-},{"../../utils/prismic-model":62,"../../utils/render":63,"./home.pug":73}],75:[function(require,module,exports){
+},{"../../utils/prismic-model":62,"../../utils/render":63,"./home.pug":73,"wowjs":58}],75:[function(require,module,exports){
 'use strict';
 
 var callPrismic = require('../../utils/prismic-model');
