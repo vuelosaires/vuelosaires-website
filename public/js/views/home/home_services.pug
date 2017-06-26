@@ -1,0 +1,12 @@
+#services-container
+  .container
+    .row
+      .twelve.columns
+        h2 Nuestros Servicios
+        .row
+          each val in service_modules
+            .four.columns.service-module.wow.fadeInUp(data-wow-delay="0.1s")
+              img.module-pic.wow.fadeInUp(data-wow-delay="0.2" src='https://static1.squarespace.com/static/5547ba95e4b06698c531adc2/t/55617d2ae4b004a8dfc586bb/1432423570132/circular+placeholder.jpg')
+              h3.service-title.wow.fadeInUp(data-wow-delay="0.3")= val.title
+              p.service-description.wow.fadeInUp(data-wow-delay="0.4")= val.description
+              a.services-more-link.wow.fadeInUp(data-wow-delay="0.5" href='#') Ver más

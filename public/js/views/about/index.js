@@ -4,14 +4,16 @@ const template = require('./about.pug');
 const slick = require('slick-carousel');
 
 function about (context, next) {
-  render(context, template);
-  $('.single-item').slick({
-    dots: true,
-    speed: 500,
-    centerMode: true,
-    autoplay: true,
-    autoplaySpeed: 3 * 1000,
-    infinite: true
+  callPrismic({ documentType: 'about' }, (results, err) => {
+    console.log(results);
+    if (err || !results.length || !results) return new Error('Bad request.');
+
+    var templateOpts = {
+      title: results[0].data['about.about-title'].value[0].text,
+      description: results[0].data['about.about-description'].value[0].text
+    };
+
+    render(context, template, templateOpts);
   });
 }
 

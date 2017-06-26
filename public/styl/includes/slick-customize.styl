@@ -1,12 +1,15 @@
 .slick-track
+  outline none
+  background black
   .slick-slide
-    outline 0
+    background black
+    outline none
     height auto
-    max-height 500px
+    max-height none
     img
       width 100%
-      margin 0 auto
-      outline 0
+      height auto
+      margin auto
       max-width 1600px
 .slick-prev,
 .slick-next
@@ -29,32 +32,34 @@
 .slick-prev
   left 0
   &:before
-    content '<'
-    padding 1px
+    font-family FontAwesome
+    content '\f060'
+    padding 0px 0px 1px 2px
+    color white
+    background-color white
   
 .slick-next
   right 0
   &:before
-    content '>'
+    font-family FontAwesome
+    content "\f061"
     padding 0px 0px 1px 2px
+    background-color white
 
 .slick-prev:before, .slick-next:before
   display inline-block
-  background #fafafa
   border-radius 50%
   font-size 20px
-  width 20px
-  height 20px
-  line-height 1
+  width 30px
+  height 30px
+  line-height 30px
   color black
   -webkit-font-smoothing antialiased
   -moz-osx-font-smoothing grayscale
-  border 1px solid #aaa
-  box-shadow 0 4px 10px 1px rgba(0,0,0,.7)
 
 .slick-dots
   position absolute
-  bottom -25px
+  bottom 0
   list-style none
   display block
   text-align center
@@ -87,7 +92,7 @@
             opacity: 0.85;
         &:before
           position absolute
-          top 0
+          top -20
           left 0
           content '•'
           width 20px
@@ -95,10 +100,10 @@
           font-size 15px
           line-height 20px
           text-align center
-          color grey
+          color white
           opacity 0.5
           -webkit-font-smoothing antialiased
           -moz-osx-font-smoothing grayscale
     &.slick-active button:before
-      color black
+      color white
       opacity 1

@@ -1,3 +1,27 @@
-h1.first-title Contáctenos
-
-p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+#contact
+  .container
+    .row
+      .six.columns
+        h1.first-title Contáctenos
+        p 
+          - var n = 0;
+          while n < 20
+            span= contactDescription
+            - n++
+      .six.columns
+        form#contact-form
+          row
+            .twelve.columns
+              label(for="emailInput") Email
+              input.u-full-width#emailInput(placeholder="ejemplo@mail.com" type="email")
+            .twelve.columns
+              label(for="contactReason") Motivo de Contacto
+              select.u-full-width#contactReason
+                option(value="Option 1") Consulta
+                option(value="Option 2") Presupuesto
+                option(value="Option 3") Servicios
+          row
+            label(for="message") Mensaje
+            textarea.u-full-width#message(placeholder='Hola Vuelos Aires! ...')
+          row
+            input.button-primary(value='Enviar' type='submit')

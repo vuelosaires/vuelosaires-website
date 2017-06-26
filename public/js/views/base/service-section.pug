@@ -1,0 +1,22 @@
+//- This can't have an ID of #publicidad cause the adblocker blocks it
+.service-section
+  .top-carousel
+    each val in [topCarouselImages.image_1,topCarouselImages.image_2,topCarouselImages.image_3]
+      img(src=val.value.main.url)
+  .service-overlay-content
+    .container
+      .row
+        .twelve.columns
+          div= topTitle
+          div= bottomTitle
+  #service-body
+      .row
+        .twelve.columns
+          .section-title= title
+          .section-description= description
+      .row
+        .twelve.columns
+          .section-carousel.wow.fadeInUp(style="height: 35vw")
+            each val in [carouselImages.image_1,carouselImages.image_2,carouselImages.image_3]
+              .carousel-image
+                img(src=val.value.main.url style="height: 35vw; max-height: 1600px")

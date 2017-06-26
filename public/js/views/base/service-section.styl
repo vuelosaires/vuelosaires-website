@@ -1,4 +1,60 @@
 .service-section
-  padding-top 50px
-  .section-inner
-    background-color #fafafa
+  width 100%
+  padding-top 0px
+  background black
+  .top-carousel
+    height 100vh
+    width 100vw
+    .slick-list
+      height 100vh
+      .slick-track
+        height 100vh
+        img
+          height 100vh
+          max-height none
+          width 100vh
+    .slick-dots
+      position relative
+      bottom 50px
+      li
+        height 20px
+        width 20px
+        button
+        &:before
+          font-size 40px
+  .service-overlay-content
+    font-size 4vw
+    position absolute
+    top 200px
+    left 130px
+    color white
+    font-weight 300
+    width 70%
+    height auto
+    padding 75px 20px
+    @media screen and (max-width: $phone) {
+      font-size 9vw
+      top 30px
+      left 10px
+      text-align left
+    }
+  #service-body
+    padding 50px 10vw
+    background-color black
+    height calc(100vh + 50px)
+    .section-title
+      color white
+      padding-top 50px
+      font-size 3em
+      text-align center
+      font-weight lighter
+    .section-description
+      text-align center
+      padding 0px 10px
+      font-size 1em
+      color gray
+      min-height 50px
+      margin-bottom 30px
+    .section-carousel
+      background-color black
+      

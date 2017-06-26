@@ -1,27 +1,66 @@
 const callPrismic = require('../../utils/prismic-model');
 const render = require('../../utils/render');
 const template = require('./home.pug');
+const wow = require('wowjs');
 
 function home (context, next) {
-  var carouselResults = callPrismic({ documentType: 'homepage' }, (results, err) => {
-    console.log(results);
+  callPrismic({ documentType: 'homepage' }, (results, err) => {
     if (err || !results.length || !results) return new Error('Bad request.');
 
-    var videoURL = results[0].data['homepage.video-link'].value[0].text;
+    var templateOpts = {
+      service_modules: {
+        advertising: {
+          title: results[0].data['homepage.homepage-advertising-title'].value[0].text,
+          description: results[0].data['homepage.homepage-advertising-description'].value[0].text,
+        },
+        turism: {
+          title: results[0].data['homepage.homepage-turism-title'].value[0].text,
+          description: results[0].data['homepage.homepage-turism-description'].value[0].text
+        },
+        real_state: {
+          title: results[0].data['homepage.homepage-realstate-title'].value[0].text,
+          description: results[0].data['homepage.homepage-realstate-description'].value[0].text
+        }
+      }
+    };
 
-    if (!videoURL || !(typeof videoURL == 'string') ) {
-      return;
-    }
-
-    // BEWARE: Obscure string manipulation ahead
-    var videoId = videoURL.slice(videoURL.indexOf('v=')+2);
-
-    render(context, template);
+    render(context, template, templateOpts);
 
     const $section = $('#home');
 
-    createHomeVideo($section, videoId);
+    // Scrolling parallax effect and navbar opacity
+
+    $(window).scroll(function(){
+      var wScroll = $(this).scrollTop();
+
+      $('.home-overlay-content').css({
+        'transform' : 'translate(0px, ' + wScroll / 8 + '%)'
+      })
+
+      if (wScroll > 500) {
+        $('#main-nav').addClass('navbar-dark')
+      } else {
+        $('#main-nav').removeClass('navbar-dark')
+      }
+    });
+
+    initHomeVideo(results, $section);
+
   });
+}
+
+function initHomeVideo (results, $section, videoId) {
+  var videoURL = results[0].data['homepage.video-link'].value[0].text;
+
+  if (!videoURL || !(typeof videoURL == 'string') ) {
+    return;
+  }
+
+  // BEWARE: Obscure string manipulation ahead
+  var videoId = videoURL.slice(videoURL.indexOf('v=')+2);
+
+  createHomeVideo($section, videoId);
+
 }
 
 function createHomeVideo ($section, videoId) {
