@@ -5,7 +5,6 @@ const wow = require('wowjs');
 
 function home (context, next) {
   callPrismic({ documentType: 'homepage' }, (results, err) => {
-    // console.log(results);
     if (err || !results.length || !results) return new Error('Bad request.');
 
     var templateOpts = {
@@ -39,9 +38,9 @@ function home (context, next) {
       })
 
       if (wScroll > 500) {
-        $('#main-nav').css({'background-color' : 'rgba(34, 34, 40, 1)'})
+        $('#main-nav').addClass('navbar-dark')
       } else {
-        $('#main-nav').css({'background-color' : 'rgba(34, 34, 40, .9)'})
+        $('#main-nav').removeClass('navbar-dark')
       }
     });
 

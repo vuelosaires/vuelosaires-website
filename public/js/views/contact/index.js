@@ -3,7 +3,15 @@ const render = require('../../utils/render');
 const template = require('./contact.pug');
 
 function contact (context, next) {
-  render(context, template);
-}
+    callPrismic({ documentType: 'contact' }, (results, err) => {
+    if (err || !results.length || !results) return new Error('Bad request.');
+    var templateOptions = {
+      contactDescription: results[0].data['contact.description'].value[0].text
+    };
+
+      render(context, template, templateOptions);
+      
+    })
+  }
 
 module.exports = contact;

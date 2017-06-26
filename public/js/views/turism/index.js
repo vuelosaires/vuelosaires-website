@@ -2,7 +2,7 @@ const callPrismic = require('../../utils/prismic-model');
 const render = require('../../utils/render');
 const template = require('../base/service-section.pug');
 const slick = require('slick-carousel');
-const _ = require('lodash');
+const initCarousel = require('../../utils/init-carousel');
 
 function turism (context, next) {
   callPrismic({
@@ -24,26 +24,7 @@ function turism (context, next) {
 
       const $section = $('.service-section');
 
-      $section.find('.section-carousel').slick({
-        dots: true,
-        infinite: true,
-        speed: 500,
-        autoplay: true,
-        slidesToShow: 1,
-        fade: true,
-        cssEase: 'ease-in-out'
-      });
-
-      $section.find('.top-carousel').slick({
-        dots: true,
-        autoplay: true,
-        speed: 650,
-        slidesToShow: 1,
-        infinite: true,
-        arrows: false,
-        fade: true,
-        cssEase: 'ease-in-out'
-      })
+      initCarousel();
 
     });
 

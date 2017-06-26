@@ -2,6 +2,7 @@ const callPrismic = require('../../utils/prismic-model');
 const render = require('../../utils/render');
 const template = require('../base/service-section.pug');
 const slick = require('slick-carousel');
+const initCarousel = require('../../utils/init-carousel');
 
 function real_state (context, next) {
   callPrismic({
@@ -9,7 +10,6 @@ function real_state (context, next) {
     tags: 'inmobiliaria'
   }, (results, err) => {
     if (err) return new Error('Bad Request');
-    console.log(results)
 
     const templateOptions = {
       topCarouselImages: results[0].data['service-page.top-carousel-images'].value[0],
@@ -23,13 +23,8 @@ function real_state (context, next) {
     render(context, template, templateOptions, () => {
       const $section = $('.service-section');
 
-      $section.find('.section-carousel').slick({
-        dots: true,
-        infinite: true,
-        speed: 500,
-        autoplay: true,
-        slidesToShow: 1
-      });
+    initCarousel();
+
     });
   });
 }
